@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -21,6 +21,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FullWidthGrid() {
+  const [cliente, setCliente] = useState({});
+  const [nome, setNome] = useState('');
+  const [usuario, setUsuario] = useState('');
+  const [email, setEmail] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [dataNasc, setDataNasc] = useState('');
+  const [rua, setRua] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [complemento, setComplemento] = useState('');
+  const [cep, setCep] = useState('');
+  const [cidade, setCidade] = useState('');
+
+  const printClient = () => {
+    setCliente({
+      nome,
+      usuario,
+      email,
+      cpf,
+      dataNasc,
+      endereco: [
+        { rua },
+        { bairro },
+        { complemento },
+        { cep },
+        { cidade },
+      ],
+    });
+    console.log(cliente);
+  };
+
   const classes = useStyles();
 
   return (
@@ -43,11 +73,14 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*Nome"
                 style={{ margin: 8 }}
-                placeholder="Placeholder"
                 fullWidth
                 margin="normal"
+                name="nome"
+                value={nome}
+                onChange={(e) => { setNome(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
+                  required: true,
                 }}
               />
             </Paper>
@@ -58,9 +91,11 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*Usuario"
                 style={{ margin: 8 }}
-                placeholder="Placeholder"
                 fullWidth
                 margin="normal"
+                name="usuario"
+                value={usuario}
+                onChange={(e) => { setUsuario(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -73,9 +108,11 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*E-mail"
                 style={{ margin: 8 }}
-                placeholder="Placeholder"
                 fullWidth
                 margin="normal"
+                name="email"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -88,9 +125,11 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*CPF"
                 style={{ margin: 8 }}
-                placeholder="Placeholder"
                 fullWidth
                 margin="normal"
+                name="cpf"
+                value={cpf}
+                onChange={(e) => { setCpf(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -103,10 +142,12 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*Data Nascimento"
                 style={{ margin: 8 }}
-                placeholder="Placeholder"
                 fullWidth
                 type="date"
                 margin="normal"
+                name="dataNasc"
+                value={dataNasc}
+                onChange={(e) => { setDataNasc(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -126,9 +167,11 @@ export default function FullWidthGrid() {
                 required
                 label="*Rua"
                 style={{ margin: 8 }}
-                placeholder="Rua....."
                 fullWidth
                 margin="normal"
+                name="rua"
+                value={rua}
+                onChange={(e) => { setRua(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -141,9 +184,11 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*Bairro"
                 style={{ margin: 8 }}
-                placeholder="..."
                 fullWidth
                 margin="normal"
+                name="bairro"
+                value={bairro}
+                onChange={(e) => { setBairro(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -156,9 +201,11 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*Complemento"
                 style={{ margin: 8 }}
-                placeholder="...."
                 fullWidth
                 margin="normal"
+                name="complemento"
+                value={complemento}
+                onChange={(e) => { setComplemento(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -171,10 +218,12 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*CEP"
                 style={{ margin: 8 }}
-                placeholder="Placeholder"
                 fullWidth
                 type="number"
                 margin="normal"
+                name="cep"
+                value={cep}
+                onChange={(e) => { setCep(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -187,9 +236,11 @@ export default function FullWidthGrid() {
                 id="standard-full-width"
                 label="*Cidade"
                 style={{ margin: 8 }}
-                placeholder="Placeholder"
                 fullWidth
                 margin="normal"
+                name="cidade"
+                value={cidade}
+                onChange={(e) => { setCidade(e.target.value); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -208,6 +259,7 @@ export default function FullWidthGrid() {
             <Button
               variant="contained"
               color="primary"
+              onClick={() => printClient()}
               style={{
                 height: '50px',
                 width: '150px',
