@@ -9,7 +9,6 @@ const StyledCard = styled.div`
     & div{
         flex:1;
     }
-
 `;
 
 export default StyledCard;
