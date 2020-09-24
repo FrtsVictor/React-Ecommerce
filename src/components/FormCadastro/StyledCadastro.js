@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 const StyledCadastro = styled.div`
-    margin-top: 80px;
+    margin: 120px;
+    font-size: 16px;
+
 `;
 
 export default StyledCadastro;
