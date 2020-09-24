@@ -23,7 +23,7 @@ const Produto = () => {
 
   return (
     <>
-      <Header title="Ecommerce" title2="asdasdasdasd" />
+      <Header title="Ecommerce" />
 
       {produto.map((pdt, index) => (
         <div key={index}>

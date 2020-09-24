@@ -3,7 +3,7 @@ import FormCadastro from '../../components/FormCadastro';
 
 const Cadastro = () => (
   <>
-    <h1>HEADER</h1>
+    <h1>HEasdasdsadADER</h1>
     <FormCadastro />
 
   </>

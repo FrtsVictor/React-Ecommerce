@@ -29,7 +29,7 @@ export default function FullWidthGrid() {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <TextField required id="standard-required" label="Required" defaultValue="Hello World" />
+                <h2>Bem Vindo!Precisamos do seu Cadastro para login.</h2>
               </Paper>
 
             </Grid>
