@@ -6,7 +6,7 @@ import logo from '../../assets/imgs/logo.png';
 const Nav = ( ) => (
     <Navbar>
     <div>
-        <img className="logo" src={logo} alt="logo" width="120" height="60"/> 
+        <img className="logo" src={logo} alt="logo" width="200" height="100"/> 
         <ul>
         <ul>
         <li>
