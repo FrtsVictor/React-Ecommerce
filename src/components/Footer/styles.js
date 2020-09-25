@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 export const StyledFooter = styled.div`
 
-margin-top: 100%;
-
 .icones{
   display: flex;
   margin-right: 20px;

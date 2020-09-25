@@ -11,13 +11,13 @@ const Nav = ( ) => (
         <ul>
         <li>
           <Link  id="itens" to="/">
-            Home |
-          </Link>
+            Home
+          </Link> |  
         </li>
         <li>
           <Link id="itens" to="/produto">
-            Produtos |
-          </Link>
+            Produtos
+          </Link> |  
         </li>
         <li>
           <Link id="itens" to="/admin">
