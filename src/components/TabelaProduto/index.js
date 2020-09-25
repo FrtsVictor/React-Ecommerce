@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,48 +10,27 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { apiProduto } from '../../services/ApiProduto';
 
-const columns = [
-  { id: 'nome', label: 'Nome', minWidth: 170 },
-  { id: 'descricao', label: 'Descricao', minWidth: 100 },
-  {
-    id: 'qtdEstoque',
-    label: 'Estoque',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
   },
-  {
-    id: 'valor',
-    label: 'Valor',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+  body: {
+    fontSize: 14,
   },
-  {
-    id: 'nomeCategoria',
-    label: 'nomeCategoria',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'dataFabricacao',
-    label: 'Data Fabricacao',
-    minWidth: 170,
-    align: 'right',
+}))(TableCell);
 
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
   },
-];
-
-function createData(nome, descricao, qtdEstoque, valor, nomeCategoria, dataFabricacao) {
-  return {
-    nome, descricao, qtdEstoque, valor, nomeCategoria, dataFabricacao,
-  };
-}
+}))(TableRow);
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
+    width: '80%',
   },
   container: {
     maxHeight: 440,
@@ -62,7 +41,9 @@ export default function StickyHeadTable() {
   const [listaProduto, setListaProduto] = useState([]);
   const [arrayColumName, setArrayColum] = useState([]);
   const [coluna, setColuna] = useState([]);
-  const rows = listaProduto.map((pdt) => (createData(pdt.nome, pdt.descricao, pdt.qtdEstoque, pdt.valor, pdt.nomeCategoria, pdt.dataFabricacao)));
+  const rows = listaProduto.map((pdt) => (pdt));
+
+  const columns = coluna;
 
   useEffect(() => {
     apiProduto.loadAll()
@@ -80,7 +61,7 @@ export default function StickyHeadTable() {
         id: colName,
         label: colName,
         minWidth: 170,
-        align: 'right',
+        align: 'center',
       };
       return [...objCol, col];
     }, []));
@@ -104,30 +85,30 @@ export default function StickyHeadTable() {
       <TableContainer classnome={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
+            <StyledTableRow>
               {columns.map((column) => (
-                <TableCell
+                <StyledTableCell
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </StyledTableCell>
               ))}
-            </TableRow>
+            </StyledTableRow>
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={row.descricao}>
+              <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.descricao}>
                 {columns.map((column) => {
                   const value = row[column.id];
                   return (
-                    <TableCell key={column.id} align={column.align}>
+                    <StyledTableCell key={column.id} align={column.align}>
                       {column.format && typeof value === 'number' ? column.format(value) : value}
-                    </TableCell>
+                    </StyledTableCell>
                   );
                 })}
-              </TableRow>
+              </StyledTableRow>
             ))}
           </TableBody>
         </Table>
