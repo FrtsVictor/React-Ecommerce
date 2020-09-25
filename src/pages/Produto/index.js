@@ -3,10 +3,12 @@ import api from '../../services/api';
 import Nav from '../../components/Nav';
 import './styles'
 import {CardProdutoStyle} from './styles';
+import Footer from '../../components/Footer';
+import semFoto from '../../assets/imgs/pdt-sem-imagem.png';
 const Produto = () => {
   const [produto, setProduto] = useState([]);
   const [categoria, setCategoria] = useState([]);
-  const laodProduto = async () => {
+  const loadProduto = async () => {
     try {
       const response = await api.get('produto');
       const produtos = response.data;
@@ -18,7 +20,7 @@ const Produto = () => {
     }
   };
 
-  const laodCategoria = async () => {
+  const loadCategoria = async () => {
     try {
       const response = await api.get('categoria');
       const categorias = response.data;
@@ -32,16 +34,19 @@ const Produto = () => {
   
 
   useEffect(() => {
-    laodProduto();
-    laodCategoria();
+    loadProduto();
+    loadCategoria();
   }, []);
 
   const [option, setOption] = useState('')
   const filtrados = produto.filter(pdt => {  
-    if(option == 'all'){
-      return produto;
+    if(pdt.nomeCategoria === option){
+      console.log(pdt);
+      // return pdt;
     }
-    return pdt.nomeCategoria == option 
+    
+    console.log(pdt);
+    return pdt;
   })
 
   const filtroPreco = (max,min) => {
@@ -62,19 +67,18 @@ console.log(preco);
 
       <div className="filtros">
       <div className="filtro-categoria">
-      <label for="item-categoria">Filtrar por categoria</label>
+      <label htmlFor="item-categoria">Filtrar por categoria</label>
       <select id="cat" name="item-categoria" value={option} onChange={(e)=> setOption(e.target.value)}>
       <option value="all">Todos</option>
         {categoria.map((cat, index) => (
         <option key={index} value={cat.nome}>{cat.nome}</option>
         ))}
-        {console.log(option)}
+        {/* {console.log(option)} */}
       </select> 
-      </div>
       </div>
 
     <div className="filtro-preco">
-      <label for="item-preco">Filtrar por preço</label>
+      <label htmlFor="item-preco">Filtrar por preço</label>
       <select name="item-preco" value={preco} onChange={(e)=> setPreco(e.target.value.split(" "))}>
         <option value="0 100">
           Até 100
@@ -87,13 +91,21 @@ console.log(preco);
         </option>
       </select>
     </div>
+    </div>
   
     <CardProdutoStyle>
   {filtrados.map((pdt, index) =>(
-    <div className="container">
-      <div key={index} className="card">
+    <div className="container" key={index}>
+      <div className="card">
         <p className="categoria">{pdt.nomeCategoria}</p>
-        <img src={pdt.fotoLink} alt="" width="100%"/>
+        <img src={pdt.fotoLink} alt="foto-produto" width="100%"/>
+
+        {/* if (src={pdt.fotoLink} != null) {
+          <img src={pdt.fotoLink} alt="foto-produto" width="100%"/>
+        } else {
+          <img src={semFoto} alt="foto-produto" width="100%"/>
+        } */}
+        
         <h1>{pdt.nome}</h1>
         <p className="price">R${pdt.valor}</p>
         <p className="descricao">{pdt.descricao}</p>
@@ -104,6 +116,7 @@ console.log(preco);
   ))}
 
     </CardProdutoStyle>
+    <Footer />
 
 </>
 );

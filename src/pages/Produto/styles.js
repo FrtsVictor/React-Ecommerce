@@ -5,16 +5,16 @@ export const CardProdutoStyle = styled.div`
 
 .container{
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 40px;
+    margin-left: 55px;
 }
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: 40px;
+    width: 300px;
+    height: 400px;
+    margin: 20px;
     text-align: center;
     border-radius: 5px;
+    background-color: #fff;
   }
   
   .price {
@@ -34,6 +34,7 @@ export const CardProdutoStyle = styled.div`
     font-size: 18px;
     border-radius: 2px;
     transition: background-color 0.5s;
+    margin-top: -12px;
   }
 
   
@@ -43,7 +44,7 @@ export const CardProdutoStyle = styled.div`
 
 .descricao{
     font-size: 14px;
-    margin: 15px;
+    margin: 21px;
     color: #656464;
 }
 
@@ -58,7 +59,7 @@ export const CardProdutoStyle = styled.div`
 }
 
 h1{
-    font-size: 30px;
+    font-size: 20px;
     margin: 5px 15px 5px 15px;
     color: #535252;
 }
@@ -68,6 +69,8 @@ h1{
     color: #535252;
 }
 
-
-
-  `;
+img {
+  width: 250px;
+  height: 250px;
+}
+`;
