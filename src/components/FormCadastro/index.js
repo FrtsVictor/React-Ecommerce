@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import StyledCadastro from './StyledCadastro';
+import StyledCadastro from './styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,9 +61,9 @@ export default function FullWidthGrid() {
           <Grid item xs={12}>
 
             <h2
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: 'center', color:'#333' }}
             >
-              Bem Vindo!Precisamos do seu Cadastro para login.
+              Bem Vindo! Precisamos do seu Cadastro para login.
             </h2>
 
           </Grid>
@@ -256,14 +256,14 @@ export default function FullWidthGrid() {
               display: 'grid',
             }}
           >
-            <Button
+            <Button id="button"
               variant="contained"
-              color="primary"
               onClick={() => printClient()}
               style={{
                 height: '50px',
                 width: '150px',
-              }}
+                
+               }}
             >
               Enviar
             </Button>

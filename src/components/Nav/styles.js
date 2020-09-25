@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Navbar = styled.div`
 
 div {
-    height: 100px;
+    height: 200px;
     width: 100%;
     background: #6D3CAB;
     font-size: 18px;
@@ -33,7 +33,7 @@ li{
 }
 
 #itens:hover{
-    color: #4dccd7;
+    color: #B491E1;
 }
 
 ul{
@@ -42,5 +42,9 @@ ul{
 #itens{
     color: #fff;
     text-decoration:none;
+}
+
+i{
+    margin-right:5px;
 }
 `;

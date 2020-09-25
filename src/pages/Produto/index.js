@@ -2,18 +2,22 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import Nav from '../../components/Nav';
 import './styles'
-import {CardProdutoStyle} from './styles';
+import {CardProdutoStyle, Filtros} from './styles';
 import Footer from '../../components/Footer';
 import semFoto from '../../assets/imgs/pdt-sem-imagem.png';
 const Produto = () => {
   const [produto, setProduto] = useState([]);
   const [categoria, setCategoria] = useState([]);
+  const [filtrados, setFiltrados] = useState([]);
+  const [precoFiltrado, setPrecoFiltrado] = useState([]);
+  //primeira requisição - produtos filtrados todos
   const loadProduto = async () => {
     try {
       const response = await api.get('produto');
       const produtos = response.data;
 
       setProduto(produtos);
+      setFiltrados(produtos);
       console.log(produtos);
     } catch (error) {
       console.log(error);
@@ -32,79 +36,99 @@ const Produto = () => {
     }
   };
   
-
   useEffect(() => {
     loadProduto();
     loadCategoria();
+  
   }, []);
 
-  const [option, setOption] = useState('')
-  const filtrados = produto.filter(pdt => {  
-    if(pdt.nomeCategoria === option){
-      console.log(pdt);
-      // return pdt;
+  const [option, setOption] = useState('all')
+  //modificações no option (categoria)
+  useEffect(() => {
+    if (option === 'all'){
+      setFiltrados(produto);
+      return;
     }
-    
-    console.log(pdt);
-    return pdt;
-  })
-
-  const filtroPreco = (max,min) => {
-     produto.filter(pdt => pdt.valor <= max && pdt.valor >=min)
-  }
-  
-  const [preco, setPreco] = useState('')
-
+    const filtradosTemp = produto.filter(pdt => {  
+      if(pdt.nomeCategoria === option){
+        console.log(pdt);
+        return pdt;
+      } 
+    });
+    setFiltrados(filtradosTemp);
+  },[option])
  
-filtroPreco(preco[0], preco[1]);
+
+  const [precoOption, setPrecoOption] = useState('todos');
+
+useEffect(() => {
+  if(precoOption === 'todos'){
+    setPrecoFiltrado(produto);
+    return;
+  }  
+  if(produto.valor <= 100){
+    setPrecoFiltrado(produto);
+    return;
+  }if (produto.valor >101 && produto.valor <=500){
+    setPrecoFiltrado(produto)
+    return;
+  }if (produto.valor >=501){
+    setPrecoFiltrado(produto);
+    return;
+  }
+  const filtradosValor = produto.filter(pdt => {  
+    if(pdt.valor === precoOption){
+      return pdt;
+    } 
+  });
+  setPrecoFiltrado(filtradosValor);
+},[precoOption]);
 
 
-console.log(preco);
+const addDefaultImg = (e) => {
+  e.target.src = semFoto;
+}
 
   return (
     <>
     <Nav />
-
+    <Filtros>
       <div className="filtros">
       <div className="filtro-categoria">
-      <label htmlFor="item-categoria">Filtrar por categoria</label>
+    <label htmlFor="item-categoria">Filtrar por categoria</label>
       <select id="cat" name="item-categoria" value={option} onChange={(e)=> setOption(e.target.value)}>
       <option value="all">Todos</option>
         {categoria.map((cat, index) => (
         <option key={index} value={cat.nome}>{cat.nome}</option>
         ))}
-        {/* {console.log(option)} */}
       </select> 
       </div>
 
     <div className="filtro-preco">
       <label htmlFor="item-preco">Filtrar por preço</label>
-      <select name="item-preco" value={preco} onChange={(e)=> setPreco(e.target.value.split(" "))}>
-        <option value="0 100">
+      <select name="item-preco" value={precoOption} onChange={(e)=> setPrecoOption(e.target.value)}>
+      <option value="todos" >
+          --
+        </option>
+        <option value={produto.valor}>
           Até 100
         </option>
-        <option value="101 500">
+        <option value={produto.valor}>
           100 até 500
         </option>
-        <option value="501 10000">
+        <option value={produto.valor}>
           Acima 500
         </option>
       </select>
     </div>
     </div>
-  
+    </Filtros>
     <CardProdutoStyle>
   {filtrados.map((pdt, index) =>(
     <div className="container" key={index}>
       <div className="card">
         <p className="categoria">{pdt.nomeCategoria}</p>
-        <img src={pdt.fotoLink} alt="foto-produto" width="100%"/>
-
-        {/* if (src={pdt.fotoLink} != null) {
-          <img src={pdt.fotoLink} alt="foto-produto" width="100%"/>
-        } else {
-          <img src={semFoto} alt="foto-produto" width="100%"/>
-        } */}
+        <img src={pdt.fotoLink} onError={addDefaultImg} alt="foto-produto" width="100%"/>
         
         <h1>{pdt.nome}</h1>
         <p className="price">R${pdt.valor}</p>

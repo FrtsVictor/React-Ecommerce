@@ -5,16 +5,18 @@ export const CardProdutoStyle = styled.div`
 
 .container{
     display: inline-flex;
-    margin-left: 55px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 40px;
 }
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 300px;
     height: 400px;
-    margin: 20px;
     text-align: center;
     border-radius: 5px;
     background-color: #fff;
+    margin: 20px;
   }
   
   .price {
@@ -46,6 +48,10 @@ export const CardProdutoStyle = styled.div`
     font-size: 14px;
     margin: 21px;
     color: #656464;
+    max-width: 30ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .categoria{
@@ -72,5 +78,45 @@ h1{
 img {
   width: 250px;
   height: 250px;
+}
+
+
+
+`;
+
+export const Filtros = styled.div`
+
+.filtros{
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  justify-content: center;
+  font-family: 'Roboto';
+  font-weight: 600;
+  color: #535252;
+  font-size: 16px;
+}
+
+select{
+  border: none;
+  border-bottom: 1px solid #333;
+  font-size: 14px;
+  color: #333;
+  width: 200px;
+  height: 40px;
+}
+
+.filtro-preco{
+  margin-left: 80px;
+
+& label{
+  margin-right: 10px;
+}
+
+}
+
+.filtro-categoria label{
+  margin-right: 10px;
+
 }
 `;

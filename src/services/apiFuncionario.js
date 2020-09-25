@@ -1,10 +1,10 @@
 import api from './api';
 
-const apiFuncionario = {
+const apiCategoria = {
 
   loadAll: async () => {
     try {
-      const response = await api.get('funcionario');
+      const response = await api.get('categoria');
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -14,7 +14,7 @@ const apiFuncionario = {
 
   loadByID: async (id) => {
     try {
-      const response = await api.get(`funcionario/${id}`);
+      const response = await api.get(`categoria/${id}`);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -22,22 +22,22 @@ const apiFuncionario = {
     }
   },
 
-  create: async (nome, cpf) => {
+  create: async (nome, descricao) => {
     try {
-      const response = await api.post('funcionario', {
+      const response = await api.post('categoria', {
         nome,
-        cpf,
+        descricao,
       });
       return response.data;
     } catch (error) {
       return console.log(error);
     }
   },
-  update: async (id, nome, cpf) => {
+  update: async (id, nome, descricao) => {
     try {
-      const response = await api.put(`funcionario${id}`, {
+      const response = await api.put(`categoria${id}`, {
         nome,
-        cpf,
+        descricao,
       });
       console.log(response.data);
       return response.data;
@@ -48,7 +48,7 @@ const apiFuncionario = {
 
   delete: async (id) => {
     try {
-      const response = await api.delete(`funcionario/${id}`);
+      const response = await api.delete(`categoria/${id}`);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -58,4 +58,4 @@ const apiFuncionario = {
 
 };
 
-export default apiFuncionario;
+export default apiCategoria;
