@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ImgMediaCard({ title }) {
+export default function ImgMediaCard({ title, selectTable, selectedTable }) {
   const classes = useStyles();
 
   return (
@@ -35,7 +35,7 @@ export default function ImgMediaCard({ title }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={() => selectTable(selectedTable)}>
           Editar
         </Button>
       </CardActions>
