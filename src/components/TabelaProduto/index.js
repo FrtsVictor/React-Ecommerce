@@ -83,8 +83,7 @@ export default function StickyHeadTable() {
         align: 'right',
       };
       return [...objCol, col];
-    }), []);
-    console.log('arrau', arrayColumName);
+    }, []));
   }, [arrayColumName]);
 
   const classes = useStyles();
