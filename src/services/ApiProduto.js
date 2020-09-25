@@ -79,4 +79,4 @@ const apiProduto = {
 
 };
 
-export default apiProduto;
+export { apiProduto };

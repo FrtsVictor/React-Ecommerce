@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../../components/CardAdmin';
 import StyledCard from '../../components/CardAdmin/sytles';
+import Tabela from '../../components/TabelaProduto';
 import Nav from '../../components/Nav';
 
 const Admin = () => {
-  const produto = 'Produtos';
-  const funcionario = 'Funcionarios';
-  const cliente = 'Clientes';
-  const carrinho = 'Carrinho de compras';
+  const [table, setTable] = useState('');
 
   return (
     <>
-    <Nav />
-    <StyledCard>
-      <Card title={produto} />
-      <Card title={funcionario} />
-      <Card title={cliente} />
-      <Card title={carrinho} />
-    </StyledCard>
+      <Nav />
+      <StyledCard>
+        <Card title="Produto" selectTable={setTable} selectedTable="Produto" />
+        <Card title="Funcionario" selectTable={setTable} selectedTable="Funcionario" />
+        <Card title="Cliente" selectTable={setTable} selectedTable="Cliente" />
+        <Card title="Carrinho" selectTable={setTable} selectedTable="Carrinho" />
+      </StyledCard>
+      <h1>{table}</h1>
+      <Tabela />
     </>
   );
 };

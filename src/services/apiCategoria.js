@@ -49,6 +49,7 @@ const apiCategoria = {
   delete: async (id) => {
     try {
       const response = await api.delete(`categoria/${id}`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return console.log(error);
