@@ -1,10 +1,21 @@
 import React from 'react';
-import StyledFooter from './styles';
+import {StyledFooter} from './styles';
+import logo from '../../img/site-seguroo.png'
 
 const Footer = () => (
 
   <StyledFooter>
-    <p>Fooooter aquiiii</p>
+
+    <div className="flex-container">
+      <img className="img" src={logo}></img>
+      <p className="texto"><em>Desenvolvido por TechTeam \o/</em></p>
+      <div className="icones">   
+        <a href="#" className="fa fa-instagram"></a>
+        <a href="#" className="fa fa-facebook"></a>
+        <a href="#" className="fa fa-twitter"></a>
+      </div>    
+    </div>
+
   </StyledFooter>
 
 );
