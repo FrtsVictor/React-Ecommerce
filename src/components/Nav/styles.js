@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Navbar = styled.div`
 
 div {
-    height: 200px;
+    height: 150px;
     width: 100%;
     background: #6D3CAB;
     font-size: 18px;

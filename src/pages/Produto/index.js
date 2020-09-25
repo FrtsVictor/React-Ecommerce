@@ -10,6 +10,7 @@ const Produto = () => {
   const [categoria, setCategoria] = useState([]);
   const [filtrados, setFiltrados] = useState([]);
   const [precoFiltrado, setPrecoFiltrado] = useState([]);
+
   //primeira requisição - produtos filtrados todos
   const loadProduto = async () => {
     try {
@@ -18,6 +19,7 @@ const Produto = () => {
 
       setProduto(produtos);
       setFiltrados(produtos);
+      setPrecoFiltrado(produtos);
       console.log(produtos);
     } catch (error) {
       console.log(error);
@@ -39,14 +41,23 @@ const Produto = () => {
   useEffect(() => {
     loadProduto();
     loadCategoria();
-  
   }, []);
 
+//modificações no option (categoria)
   const [option, setOption] = useState('all')
-  //modificações no option (categoria)
+  const [precoOption, setPrecoOption] = useState('todos');
   useEffect(() => {
-    if (option === 'all'){
+    if (option === 'all' && precoOption != 'todos'){
       setFiltrados(produto);
+      console.log('all',filtrados)
+      return;
+    }if(option === 'all' && precoOption === '0,100'){
+      setFiltrados(filtrar(produto, precoOption));
+      console.log('0 e 100', (filtrar(produto, precoOption)))
+      return;
+    }if(option === 'all' && precoOption === '101,100000'){
+      setFiltrados(filtrar(produto, precoOption));
+      console.log('101 e 100000', filtrados)
       return;
     }
     const filtradosTemp = produto.filter(pdt => {  
@@ -55,39 +66,34 @@ const Produto = () => {
         return pdt;
       } 
     });
-    setFiltrados(filtradosTemp);
-  },[option])
- 
+    setFiltrados(filtrar(filtradosTemp, precoOption));
+    
+  },[option, precoOption])
 
-  const [precoOption, setPrecoOption] = useState('todos');
+  
 
-useEffect(() => {
-  if(precoOption === 'todos'){
-    setPrecoFiltrado(produto);
-    return;
+  const filtrar = (lista, filtro) =>{
+    let [max, min] = filtro;
+    return lista.filter((p) => p.valor >= parseInt(max) && p.valor <= parseInt(min) )
   }  
-  if(produto.valor <= 100){
-    setPrecoFiltrado(produto);
-    return;
-  }if (produto.valor >101 && produto.valor <=500){
-    setPrecoFiltrado(produto)
-    return;
-  }if (produto.valor >=501){
-    setPrecoFiltrado(produto);
-    return;
-  }
-  const filtradosValor = produto.filter(pdt => {  
-    if(pdt.valor === precoOption){
-      return pdt;
-    } 
-  });
-  setPrecoFiltrado(filtradosValor);
-},[precoOption]);
-
-
+  
 const addDefaultImg = (e) => {
   e.target.src = semFoto;
 }
+
+
+
+// useEffect(() => {
+//   if(precoOption === 'todos'){
+//     setPrecoFiltrado(produto);
+//     return;
+//   }  
+//   setPrecoFiltrado(filtrar(produto,precoOption))
+//   console.log('oi');
+//   console.log(produto);
+// },[precoOption])
+
+
 
   return (
     <>
@@ -106,18 +112,20 @@ const addDefaultImg = (e) => {
 
     <div className="filtro-preco">
       <label htmlFor="item-preco">Filtrar por preço</label>
-      <select name="item-preco" value={precoOption} onChange={(e)=> setPrecoOption(e.target.value)}>
-      <option value="todos" >
+      <select name="item-preco" value={precoOption} 
+      onChange={(e)=> {
+        let strings = e.target.value;
+        let arrayOpt = strings.split(',')
+        setPrecoOption(arrayOpt)}}>
+      
+      <option value='todos' >
           --
         </option>
-        <option value={produto.valor}>
-          Até 100
+        <option value='0,100'>
+         Menor preço
         </option>
-        <option value={produto.valor}>
-          100 até 500
-        </option>
-        <option value={produto.valor}>
-          Acima 500
+        <option value='101,100000'>
+          Maior preço
         </option>
       </select>
     </div>
