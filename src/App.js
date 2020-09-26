@@ -1,13 +1,16 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
+import ListProvider from './services/ListsContext';
 
 function App() {
   return (
 
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <ListProvider>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </ListProvider>
 
   );
 }
