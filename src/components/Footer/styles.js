@@ -14,7 +14,6 @@ export const StyledFooter = styled.div`
     background-color: #6D3CAB;
     align-items: center;
     color: white;
-
   }
   
   .flex-container > div {

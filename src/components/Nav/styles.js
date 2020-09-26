@@ -15,7 +15,7 @@ div {
 }
 
 .logo {
-    margin-left: 20px;  
+    margin-left: 40px;  
 }
 
 li{

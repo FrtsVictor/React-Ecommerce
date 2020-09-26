@@ -6,8 +6,9 @@
   }
 
   body{
-    font-family: sans-serif;
-    background-color: #E5E5E5;;
+    font-family:'Roboto';
+    background-color: #E5E5E5;
+    overflow-x: hidden; 
   }
 
   button{
