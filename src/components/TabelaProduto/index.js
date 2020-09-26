@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+/* eslint-disable no-nested-ternary */
+import React, {
+  useEffect, useState, useContext,
+} from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,87 +11,85 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { apiProduto } from '../../services/ApiProduto';
+import { ContextLists } from '../../services/ListsContext';
 
-const columns = [
-  { id: 'nome', label: 'Nome', minWidth: 170 },
-  { id: 'descricao', label: 'Descricao', minWidth: 100 },
-  {
-    id: 'qtdEstoque',
-    label: 'Estoque',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
   },
-  {
-    id: 'valor',
-    label: 'Valor',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+  body: {
+    fontSize: 14,
   },
-  {
-    id: 'nomeCategoria',
-    label: 'nomeCategoria',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'dataFabricacao',
-    label: 'Data Fabricacao',
-    minWidth: 170,
-    align: 'right',
+}))(TableCell);
 
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
   },
-];
-
-function createData(nome, descricao, qtdEstoque, valor, nomeCategoria, dataFabricacao) {
-  return {
-    nome, descricao, qtdEstoque, valor, nomeCategoria, dataFabricacao,
-  };
-}
+}))(TableRow);
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
+    width: '80%',
   },
   container: {
     maxHeight: 440,
   },
 });
 
-export default function StickyHeadTable() {
-  const [listaProduto, setListaProduto] = useState([]);
-  const [arrayColumName, setArrayColum] = useState([]);
-  const [coluna, setColuna] = useState([]);
-  const rows = listaProduto.map((pdt) => (createData(pdt.nome, pdt.descricao, pdt.qtdEstoque, pdt.valor, pdt.nomeCategoria, pdt.dataFabricacao)));
+// _______________________Create Coluns
 
-  useEffect(() => {
-    apiProduto.loadAll()
-      .then((response) => {
-        // eslint-disable-next-line no-nested-ternary
-        const sortedList = response.sort((a, b) => (a.nome > b.nome ? 1 : a.nome < b.nome ? -1 : 0));
-        setArrayColum(Object.getOwnPropertyNames(sortedList[0]));
-        setListaProduto(sortedList);
-      });
-  }, []);
+const makeColHead = (chavesColuna) => chavesColuna.reduce((column, newCol) => {
+  const coll = {
+    id: newCol,
+    label: newCol,
+    minWidth: 170,
+    align: 'center',
+  };
+  return [...column, coll];
+}, []);
 
-  useEffect(() => {
-    setColuna(arrayColumName.reduce((objCol, colName) => {
-      const col = {
-        id: colName,
-        label: colName,
-        minWidth: 170,
-        align: 'right',
-      };
-      return [...objCol, col];
-    }, []));
-  }, [arrayColumName]);
+export default function StickyHeadTable({ selectedColumn }) {
+  // TABLE DATA
+  const { listaProduto } = useContext(ContextLists);
+  const { listaCategoria } = useContext(ContextLists);
+  const { listaFunc } = useContext(ContextLists);
 
+  // TABLE STYLES
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  // TABLE COLUMNS
+  const [obj, setObj] = useState([]);
+  const [col, setCol] = useState([]);
+  const chavesProduto = ['id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
+  const chavesCategoria = ['id', 'nome', 'descricao'];
+  const chavesFuncionario = ['id', 'nome', 'cpf'];
+
+  // Table Switcher
+  const [tablee, setTablee] = useState('');
+
+  useEffect(() => {
+    setTablee(selectedColumn);
+  }, [selectedColumn]);
+
+  useEffect(() => {
+    if (tablee === 'Produto') {
+      setObj(listaProduto);
+      setCol(makeColHead(chavesProduto));
+      return;
+    } if (tablee === 'Categoria') {
+      setCol(makeColHead(chavesCategoria));
+      setObj(listaCategoria);
+    } if (tablee === 'Funcionario') {
+      setCol(makeColHead(chavesFuncionario));
+      setObj(listaFunc);
+    }
+  }, [tablee]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -104,38 +105,38 @@ export default function StickyHeadTable() {
       <TableContainer classnome={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
+            <StyledTableRow>
+              {col.map((column) => (
+                <StyledTableCell
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </StyledTableCell>
               ))}
-            </TableRow>
+            </StyledTableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={row.descricao}>
-                {columns.map((column) => {
+            {obj.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+              <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.descricao}>
+                {col.map((column) => {
                   const value = row[column.id];
                   return (
-                    <TableCell key={column.id} align={column.align}>
+                    <StyledTableCell key={column.id} align={column.align}>
                       {column.format && typeof value === 'number' ? column.format(value) : value}
-                    </TableCell>
+                    </StyledTableCell>
                   );
                 })}
-              </TableRow>
+              </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 25, 100]}
         component="div"
-        count={rows.length}
+        count={obj.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
