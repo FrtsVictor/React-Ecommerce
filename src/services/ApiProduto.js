@@ -23,8 +23,7 @@ const apiProduto = {
 
   create: async (
     nome, descricao, qtdEstoque, valor,
-    idCategoria, nomeCategoria, idFuncionario,
-    nomeFuncionario, dataFabricacao, fotoLink,
+    idCategoria, idFuncionario, dataFabricacao, fotoLink,
   ) => {
     try {
       const response = await api.post('produto', {
@@ -33,9 +32,7 @@ const apiProduto = {
         qtdEstoque,
         valor,
         idCategoria,
-        nomeCategoria,
         idFuncionario,
-        nomeFuncionario,
         dataFabricacao,
         fotoLink,
       });
@@ -79,4 +76,4 @@ const apiProduto = {
 
 };
 
-export { apiProduto };
+export default apiProduto;
