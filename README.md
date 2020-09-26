@@ -1,4 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#  <i> :pushpin: Projeto final da disciplina de FrontEnd Web
+
+:computer: O projeto consiste no desenvolvimento de um frontend de um sistema de pedidos em um e-commerce, utilizando ReactJS.
+
+## Contribuidores
+
+ :key:[Carlos Elian](https://github.com/CarlosElian)
+ :key:Evódio Aquino
+ :key:[Lais Moreira](https://github.com/lais-mm)
+ :key:[Luana Santos](https://github.com/saalua)
+ :key:[Priscila Pinheiro Barcala](https://github.com/priscilabarcala)
+ :key:[Victor de Freitas](https://github.com/FrtsVictor)
+
+
+## Mentoria
+:key:[Diego Leite](https://github.com/diego2leite)
+
 
 ## Available Scripts
 
