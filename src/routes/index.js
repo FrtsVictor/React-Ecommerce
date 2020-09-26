@@ -8,7 +8,7 @@ import Cadastro from '../pages/Cadastro';
 const Routes = () => (
   <Switch>
 
-    <Route path="/" component={Home} exact/>
+    <Route path="/" component={Home} exact />
     <Route path="/produto" component={Produto} />
     <Route path="/admin" component={Admin} />
     <Route path="/cadastro" component={Cadastro} />
