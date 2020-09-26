@@ -120,3 +120,39 @@ select{
 
 }
 `;
+
+export const CartBtn = styled.div`
+
+#btn-carrinho{
+      display:flex;
+      justify-content:flex-end;
+      margin-right: 80px;
+      margin-bottom: 40px;
+}
+
+
+button{
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+        font-weight:600;
+        font-family: 'Roboto';
+        background-color: #6d3cab;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+        transition: background 0.5s;
+    }
+
+    button:hover{
+        background-color: #502784;
+    }
+
+    i{
+      margin-right:10px;
+      
+    }
+
+  
+
+`;
