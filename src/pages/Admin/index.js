@@ -6,10 +6,11 @@ import Card from '../../components/CardAdmin';
 import StyledCard from '../../components/CardAdmin/sytles';
 import Tabela from '../../components/TabelaProduto';
 import Nav from '../../components/Nav';
-import ModalItem from '../../components/Modal';
+import ModalItem from '../../components/Modal/ModalProduto';
+import StyledTitle from './styles';
 
 const Admin = () => {
-  const [tableTitle, setTableTittle] = useState('Welcome!');// Pegando a pagina clicada
+  const [tableTitle, setTableTittle] = useState('Bem vindo ao Admin!');// Pegando a pagina clicada
 
   const SetTableName = (TableTitle) => (setTableTittle(TableTitle));
 
@@ -18,13 +19,15 @@ const Admin = () => {
       <Nav />
 
       <StyledCard>
-        <ModalItem />
         <Card title="Produto" SetTableName={SetTableName} />
         <Card title="Categoria" SetTableName={SetTableName} />
         <Card title="Funcionario" SetTableName={SetTableName} />
         <Card title="Cliente" SetTableName={SetTableName} />
       </StyledCard>
-      <h1>{tableTitle}</h1>
+      <StyledTitle>
+        <h1>{tableTitle}</h1>
+      </StyledTitle>
+      <ModalItem />
       <Tabela selectedColumn={tableTitle} />
 
       ;
