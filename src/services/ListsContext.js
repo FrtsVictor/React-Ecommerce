@@ -2,7 +2,7 @@
 import React, {
   createContext, useState, useEffect, useCallback,
 } from 'react';
-import apiProduto from './apiProduto';
+import apiProduto from './ApiProduto';
 import apiCategoria from './apiCategoria';
 import apiFuncionario from './apiFuncionario';
 
