@@ -1,10 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, {
-<<<<<<< HEAD
   useEffect, useState, useContext,
-=======
-  useCallback, useEffect, useState, useMemo,
->>>>>>> 116240148275c28f5d64136b848b902393872031
 } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -15,27 +11,18 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-<<<<<<< HEAD
+
 import { ContextLists } from '../../services/ListsContext';
-=======
-import { SettingsBackupRestoreOutlined, Title } from '@material-ui/icons';
->>>>>>> 116240148275c28f5d64136b848b902393872031
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
-<<<<<<< HEAD
   },
   body: {
     fontSize: 14,
   },
-=======
-  },
-  body: {
-    fontSize: 14,
-  },
->>>>>>> 116240148275c28f5d64136b848b902393872031
+
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -56,7 +43,6 @@ const useStyles = makeStyles({
 });
 
 // _______________________Create Coluns
-<<<<<<< HEAD
 
 const makeColHead = (chavesColuna) => chavesColuna.reduce((column, newCol) => {
   const coll = {
@@ -70,9 +56,7 @@ const makeColHead = (chavesColuna) => chavesColuna.reduce((column, newCol) => {
 
 export default function StickyHeadTable({ selectedColumn }) {
   // TABLE DATA
-  const { listaProduto } = useContext(ContextLists);
-  const { listaCategoria } = useContext(ContextLists);
-  const { listaFunc } = useContext(ContextLists);
+  const { listaProduto, listaCategoria, listaFunc } = useContext(ContextLists);
 
   // TABLE STYLES
   const classes = useStyles();
@@ -106,59 +90,6 @@ export default function StickyHeadTable({ selectedColumn }) {
       setObj(listaFunc);
     }
   }, [tablee]);
-=======
-
-const makeColHead = (chavesColuna) => chavesColuna.reduce((column, newCol) => {
-  const coll = {
-    id: newCol,
-    label: newCol,
-    minWidth: 170,
-    align: 'center',
-  };
-  return [...column, coll];
-}, []);
-
-export default function StickyHeadTable({ selectedColumn, listaProduto }) {
-  const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [obj, setObj] = useState([]);
-  const [col, setCol] = useState([]);
-  const chavesProduto = ['id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
-  const chavesCategoria = ['id', 'nome', 'categoria'];
-  const chavesFuncionario = ['id', 'nome', 'cpf'];
-  const [tablee, setTablee] = useState('Iniciado');
-
-  //   const memorizedTitle = useMemo(() => setTablee(selectedColumn), [tablee]);
-
-  const loadProduto = useCallback(
-    () => {
-      setTablee(selectedColumn);
-      console.log('loadPo');
-    },
-    [],
-  );
-
-  useEffect(() => {
-    loadProduto();
-    console.log('carregandoProduto');
-  }, [selectedColumn]);
-
-  console.log('Titleeee no componente', selectedColumn, 'asdasd', tablee);
-
-  useCallback(() => {
-    console.log('aaa', selectedColumn);
-    if (selectedColumn === 'Produto') {
-      setCol(makeColHead(chavesCategoria));
-      return;
-    } if (selectedColumn === 'Categoria') {
-      setCol(makeColHead(chavesProduto));
-      console.log(col);
-    } if (selectedColumn === 'Funcionario') {
-      setCol(makeColHead(chavesFuncionario));
-    }
-  }, []);
->>>>>>> 116240148275c28f5d64136b848b902393872031
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
