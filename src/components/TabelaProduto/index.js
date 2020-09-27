@@ -15,7 +15,7 @@ import { ContextLists } from '../../services/ListsContext';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: '#333',
     color: theme.palette.common.white,
   },
   body: {
@@ -32,9 +32,9 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
-  root: {
-    width: '80%',
-  },
+  // root: {
+  //   width: '80%',
+  // },
   container: {
     maxHeight: 440,
   },
@@ -112,8 +112,8 @@ export default function StickyHeadTable({ selectedColumn }) {
   };
 
   return (
-    <Paper classnome={classes.root}>
-      <TableContainer classnome={classes.container}>
+    <Paper classnome={classes.root} style={{width: '97.5%', marginLeft: '18px' }}>
+      <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <StyledTableRow>

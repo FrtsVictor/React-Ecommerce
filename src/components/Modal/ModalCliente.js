@@ -47,7 +47,7 @@ export default function SimpleModal() {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <Input />
-      <SimpleModal />
+      {/* <SimpleModal /> */}
     </div>
   );
 

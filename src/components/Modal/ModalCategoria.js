@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Input from '../InputModalProduto';
-
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+import InputModalCategoria from '../InputModalCategoria';
+import { Button } from '@material-ui/core';
 
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+  const top = 50;
+  const left = 50;
 
   return {
     top: `${top}%`,
@@ -46,16 +43,15 @@ export default function SimpleModal() {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <Input />
-      <SimpleModal />
+      <InputModalCategoria />
     </div>
   );
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Open Categoria
-      </button>
+      <Button type="button" size="default" color="primary" onClick={handleOpen}>
+          Adicionar
+      </Button> 
       <Modal
         open={open}
         onClose={handleClose}

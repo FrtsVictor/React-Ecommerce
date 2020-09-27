@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
 
 import SelectCategoria from './SelectCategoria';
 import SelectFuncionario from './SelectFuncionario';
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields() {
+function InputModalProduto() {
   const classes = useStyles();
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
@@ -59,35 +60,37 @@ export default function BasicTextFields() {
       />
       <TextField
         id="qtdEstoque"
-        label="qtdEstoque"
+        label="Quantidade em estoque"
         variant="outlined"
         value={qtdEstoque}
         onChange={(e) => { setqtdEstoque(e.target.value); }}
       />
       <TextField
         id="valor"
-        label="valor"
+        label="Valor"
         variant="outlined"
         value={valor}
         onChange={(e) => { setValor(e.target.value); }}
       />
       <TextField
         id="data-fabricacao"
-        label="dataFabricacao"
+        label="Data de Fabricação"
         variant="outlined"
         value={dataFabricacao}
         onChange={(e) => { setDataFabricacao(e.target.value); }}
       />
       <TextField
         id="link-foto"
-        label="Link_Foto"
+        label="Foto do Produto (link)"
         variant="outlined"
         value={fotoLink}
         onChange={(e) => { setFotoLink(e.target.value); }}
       />
       <SelectFuncionario getFuncID={getFuncID} />
       <SelectCategoria getCategoryID={getCategoryID} />
-      <button type="button" onClick={() => console.log(newProduto)}>clickme</button>
+      <Button type="button" size="small" color="primary" onClick={() => console.log(newProduto)}>Adicionar Produto</Button>
     </form>
   );
 }
+
+export default InputModalProduto;

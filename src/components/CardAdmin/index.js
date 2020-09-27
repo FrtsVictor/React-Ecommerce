@@ -13,7 +13,7 @@ import { StyledButton } from './sytles';
 import ModalProduto from '../Modal/ModalProduto';
 import ModalCategoria from '../Modal/ModalCategoria';
 import ModalFuncionario from '../Modal/ModalFuncionario';
-import ModalCliente from '../Modal/ModalCliente';
+// import ModalCliente from '../Modal/ModalCliente';
 
 const useStyles = makeStyles({
   root: {
@@ -27,22 +27,16 @@ export default function ImgMediaCard({ title, SetTableName, ModalItem }) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          alt={title}
-          height="110"
-        //   image={BuildSharpIcon}
-        />
-        <BuildSharpIcon fontSize="large" />
+        <CardMedia/>
+        <BuildSharpIcon fontSize="large" style={{margin: "25px", color: '#333'}}/>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h2" style={{color: '#333'}}>
             {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" />
         </CardContent>
       </CardActionArea>
       <CardActions>
-        {/* //Button */}
         <StyledButton>
           <Button
             size="default"
@@ -59,12 +53,10 @@ export default function ImgMediaCard({ title, SetTableName, ModalItem }) {
             <ModalCategoria />
           ) : title === 'Funcionario' ? (
             <ModalFuncionario />
-          ) : title === 'Cliente' ? (
-            <ModalCliente />
+          // ) : title === 'Cliente' ? (
+          //   <ModalCliente />
           ) : ''}
-          <Button size="default" color="primary" onClick={() => SetTableName(title)}>
-            Adicionar
-          </Button>
+          
           <Button size="default" color="primary" onClick={() => SetTableName(title)}>
             Remover
           </Button>
