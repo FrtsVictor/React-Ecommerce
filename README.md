@@ -1,5 +1,10 @@
-#  <i> :pushpin: Projeto final da disciplina de FrontEnd Web
+<h1 align="center"> Projeto final | FrontEnd Web </h1>
 
+<p align="center">
+  <img src="https://github.com/FrtsVictor/React-Ecommerce/blob/master/src/assets/imgs/logo.jpg" width="350" title="logo">
+  </p>
+
+## Descrição:
 :computer: O projeto consiste no desenvolvimento de um frontend de um sistema de pedidos em um e-commerce, utilizando ReactJS.
 
 ## Contribuidores
