@@ -1,23 +1,33 @@
-import React, { useState } from 'react';
+/* eslint-disable no-nested-ternary */
+import React, {
+  useState,
+} from 'react';
 import Card from '../../components/CardAdmin';
 import StyledCard from '../../components/CardAdmin/sytles';
 import Tabela from '../../components/TabelaProduto';
 import Nav from '../../components/Nav';
+import ModalItem from '../../components/Modal';
 
 const Admin = () => {
-  const [table, setTable] = useState('');
+  const [tableTitle, setTableTittle] = useState('Welcome!');// Pegando a pagina clicada
+
+  const SetTableName = (TableTitle) => (setTableTittle(TableTitle));
 
   return (
     <>
       <Nav />
+
       <StyledCard>
-        <Card title="Produto" selectTable={setTable} selectedTable="Produto" />
-        <Card title="Funcionario" selectTable={setTable} selectedTable="Funcionario" />
-        <Card title="Cliente" selectTable={setTable} selectedTable="Cliente" />
-        <Card title="Carrinho" selectTable={setTable} selectedTable="Carrinho" />
+        <ModalItem />
+        <Card title="Produto" SetTableName={SetTableName} />
+        <Card title="Categoria" SetTableName={SetTableName} />
+        <Card title="Funcionario" SetTableName={SetTableName} />
+        <Card title="Cliente" SetTableName={SetTableName} />
       </StyledCard>
-      <h1>{table}</h1>
-      <Tabela />
+      <h1>{tableTitle}</h1>
+      <Tabela selectedColumn={tableTitle} />
+
+      ;
     </>
   );
 };
