@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-nested-ternary */
+import React, {
+  useEffect, useState, useContext,
+} from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,7 +11,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { apiProduto } from '../../services/ApiProduto';
+
+import { ContextLists } from '../../services/ListsContext';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -18,6 +22,7 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
   },
+
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -37,39 +42,54 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StickyHeadTable() {
-  const [listaProduto, setListaProduto] = useState([]);
-  const [arrayColumName, setArrayColum] = useState([]);
-  const [coluna, setColuna] = useState([]);
-  const rows = listaProduto.map((pdt) => (pdt));
+// _______________________Create Coluns
 
-  const columns = coluna;
+const makeColHead = (chavesColuna) => chavesColuna.reduce((column, newCol) => {
+  const coll = {
+    id: newCol,
+    label: newCol,
+    minWidth: 170,
+    align: 'center',
+  };
+  return [...column, coll];
+}, []);
 
-  useEffect(() => {
-    apiProduto.loadAll()
-      .then((response) => {
-        // eslint-disable-next-line no-nested-ternary
-        const sortedList = response.sort((a, b) => (a.nome > b.nome ? 1 : a.nome < b.nome ? -1 : 0));
-        setArrayColum(Object.getOwnPropertyNames(sortedList[0]));
-        setListaProduto(sortedList);
-      });
-  }, []);
+export default function StickyHeadTable({ selectedColumn }) {
+  // TABLE DATA
+  const { listaProduto, listaCategoria, listaFunc } = useContext(ContextLists);
 
-  useEffect(() => {
-    setColuna(arrayColumName.reduce((objCol, colName) => {
-      const col = {
-        id: colName,
-        label: colName,
-        minWidth: 170,
-        align: 'center',
-      };
-      return [...objCol, col];
-    }, []));
-  }, [arrayColumName]);
-
+  // TABLE STYLES
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  // TABLE COLUMNS
+  const [obj, setObj] = useState([]);
+  const [col, setCol] = useState([]);
+  const chavesProduto = ['id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
+  const chavesCategoria = ['id', 'nome', 'descricao'];
+  const chavesFuncionario = ['id', 'nome', 'cpf'];
+
+  // Table Switcher
+  const [tablee, setTablee] = useState('');
+
+  useEffect(() => {
+    setTablee(selectedColumn);
+  }, [selectedColumn]);
+
+  useEffect(() => {
+    if (tablee === 'Produto') {
+      setObj(listaProduto);
+      setCol(makeColHead(chavesProduto));
+      return;
+    } if (tablee === 'Categoria') {
+      setCol(makeColHead(chavesCategoria));
+      setObj(listaCategoria);
+    } if (tablee === 'Funcionario') {
+      setCol(makeColHead(chavesFuncionario));
+      setObj(listaFunc);
+    }
+  }, [tablee]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -86,7 +106,7 @@ export default function StickyHeadTable() {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <StyledTableRow>
-              {columns.map((column) => (
+              {col.map((column) => (
                 <StyledTableCell
                   key={column.id}
                   align={column.align}
@@ -98,9 +118,9 @@ export default function StickyHeadTable() {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+            {obj.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.descricao}>
-                {columns.map((column) => {
+                {col.map((column) => {
                   const value = row[column.id];
                   return (
                     <StyledTableCell key={column.id} align={column.align}>
@@ -114,9 +134,9 @@ export default function StickyHeadTable() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 25, 100]}
         component="div"
-        count={rows.length}
+        count={obj.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
