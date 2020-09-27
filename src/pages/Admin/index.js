@@ -25,7 +25,6 @@ const Admin = () => {
         <Card title="Cliente" SetTableName={SetTableName} />
       </StyledCard>
       <h1>{tableTitle}</h1>
-
       <Tabela selectedColumn={tableTitle} />
 
       ;

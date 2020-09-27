@@ -9,7 +9,7 @@ import apiFuncionario from './apiFuncionario';
 export const ContextLists = createContext({});
 
 const ListProvider = ({ children }) => {
-  const [listaProduto, setListaProduto] = useState([]);
+  const [listaProduto, setListaProduto] = useState([]); // Pegando lista de produto
   const [listaCategoria, setListaCategoria] = useState([]);
   const [listaFunc, setListaFunc] = useState([]);
 
