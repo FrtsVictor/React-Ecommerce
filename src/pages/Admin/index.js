@@ -6,7 +6,6 @@ import Card from '../../components/CardAdmin';
 import StyledCard from '../../components/CardAdmin/sytles';
 import Tabela from '../../components/TabelaProduto';
 import Nav from '../../components/Nav';
-import ModalItem from '../../components/Modal/ModalProduto';
 import StyledTitle from './styles';
 
 const Admin = () => {
@@ -27,7 +26,6 @@ const Admin = () => {
       <StyledTitle>
         <h1>{tableTitle}</h1>
       </StyledTitle>
-      <ModalItem />
       <Tabela selectedColumn={tableTitle} />
 
       ;
