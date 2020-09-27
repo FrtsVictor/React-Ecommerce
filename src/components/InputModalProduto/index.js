@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-import Select from './select';
+import SelectCategoria from './SelectCategoria';
+import SelectFuncionario from './SelectFuncionario';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,10 +22,26 @@ export default function BasicTextFields() {
   const [valor, setValor] = useState();
   const [idCategoria, setIdCategoria] = useState('');
   const [idFuncionario, setIdFuncionario] = useState('');
-  const [DataFabricacao, setDataFabricacao] = useState('');
+  const [dataFabricacao, setDataFabricacao] = useState('');
   const [fotoLink, setFotoLink] = useState('');
 
+  const getCategoryID = (value) => (setIdCategoria(value));
+  const getFuncID = (value) => (setIdFuncionario(value));
+
+  const handleFormSubmit = () => [
+    { nome },
+    { descricao },
+    { qtdEstoque },
+    { valor },
+    { idFuncionario },
+    { idCategoria },
+    { dataFabricacao },
+    { fotoLink },
+  ];
+
+  const newProduto = handleFormSubmit();
   return (
+
     <form className={classes.root} noValidate autoComplete="off">
       <TextField
         id="nome"
@@ -55,24 +72,10 @@ export default function BasicTextFields() {
         onChange={(e) => { setValor(e.target.value); }}
       />
       <TextField
-        id="id-categoria"
-        label="idCategoria"
-        variant="outlined"
-        value={idCategoria}
-        onChange={(e) => { setIdCategoria(e.target.value); }}
-      />
-      <TextField
-        id="id-funcionario"
-        label="IdFuncionario"
-        variant="outlined"
-        value={idFuncionario}
-        onChange={(e) => { setIdFuncionario(e.target.value); }}
-      />
-      <TextField
         id="data-fabricacao"
-        label="DataFabricacao"
+        label="dataFabricacao"
         variant="outlined"
-        value={DataFabricacao}
+        value={dataFabricacao}
         onChange={(e) => { setDataFabricacao(e.target.value); }}
       />
       <TextField
@@ -82,7 +85,9 @@ export default function BasicTextFields() {
         value={fotoLink}
         onChange={(e) => { setFotoLink(e.target.value); }}
       />
-      <Select />
+      <SelectFuncionario getFuncID={getFuncID} />
+      <SelectCategoria getCategoryID={getCategoryID} />
+      <button type="button" onClick={() => console.log(newProduto)}>clickme</button>
     </form>
   );
 }
