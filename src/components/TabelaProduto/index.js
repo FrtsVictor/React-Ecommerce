@@ -11,7 +11,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-
 import { ContextLists } from '../../services/ListsContext';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -22,7 +21,6 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
   },
-
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -56,40 +54,53 @@ const makeColHead = (chavesColuna) => chavesColuna.reduce((column, newCol) => {
 
 export default function StickyHeadTable({ selectedColumn }) {
   // TABLE DATA
-  const { listaProduto, listaCategoria, listaFunc } = useContext(ContextLists);
+  const { listaProduto } = useContext(ContextLists);
+  const { listaCategoria } = useContext(ContextLists);
+  const { listaFunc } = useContext(ContextLists);
 
   // TABLE STYLES
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   // TABLE COLUMNS
-  const [obj, setObj] = useState([]);
+  const [rows, setRows] = useState([]);
   const [col, setCol] = useState([]);
   const chavesProduto = ['id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
   const chavesCategoria = ['id', 'nome', 'descricao'];
   const chavesFuncionario = ['id', 'nome', 'cpf'];
 
   // Table Switcher
-  const [tablee, setTablee] = useState('');
+  const [tableName, seTableName] = useState('');
 
   useEffect(() => {
-    setTablee(selectedColumn);
+    seTableName(selectedColumn);
   }, [selectedColumn]);
 
   useEffect(() => {
-    if (tablee === 'Produto') {
-      setObj(listaProduto);
+    if (tableName === 'Produto') {
       setCol(makeColHead(chavesProduto));
-      return;
-    } if (tablee === 'Categoria') {
+      setRows([{}]);
+      console.log(selectedColumn);
+      setRows(listaProduto);
+      console.log('prood, rows ', rows);
+      console.log('prod listapdo', listaProduto);
+    } if (tableName === 'Categoria') {
       setCol(makeColHead(chavesCategoria));
-      setObj(listaCategoria);
-    } if (tablee === 'Funcionario') {
+      setRows([{}]);
+      console.log(selectedColumn);
+      setRows(listaCategoria);
+      console.log('cat rows', rows);
+      console.log('cat lista', listaCategoria);
+    } if (tableName === 'Funcionario') {
       setCol(makeColHead(chavesFuncionario));
-      setObj(listaFunc);
+      setRows([{}]);
+      console.log(selectedColumn);
+      setRows(listaFunc);
+      console.log('func rows', rows);
+      console.log('func lista', listaFunc);
     }
-  }, [tablee]);
+  }, [tableName]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -118,25 +129,29 @@ export default function StickyHeadTable({ selectedColumn }) {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {obj.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+
               <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.descricao}>
+
                 {col.map((column) => {
                   const value = row[column.id];
                   return (
                     <StyledTableCell key={column.id} align={column.align}>
-                      {column.format && typeof value === 'number' ? column.format(value) : value}
+                      {console.log('tb-vl', value)}
+                      { value}
                     </StyledTableCell>
                   );
                 })}
+
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 25, 100]}
+        rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={obj.length}
+        count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
