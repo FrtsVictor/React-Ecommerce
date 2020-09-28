@@ -1,4 +1,5 @@
 import api from './api';
+import swal from 'sweetalert';
 
 const apiCategoria = {
 
@@ -18,7 +19,7 @@ const apiCategoria = {
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Categoria não encontrada", "error");
     }
   },
 
@@ -28,9 +29,10 @@ const apiCategoria = {
         nome,
         descricao,
       });
+      swal("Sucesso!", "Categoria criada com sucesso!", "success");
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível criar categoria", "error");
     }
   },
   update: async (id, nome, descricao) => {
@@ -39,10 +41,11 @@ const apiCategoria = {
         nome,
         descricao,
       });
+      swal("Sucesso!", "Categoria atualizada com sucesso!", "success");
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível atualizar categoria", "error");
     }
   },
 
@@ -50,9 +53,10 @@ const apiCategoria = {
     try {
       const response = await api.delete(`categoria/${id}`);
       console.log(response.data);
+      swal("Sucesso!", "Categoria deletada com sucesso!", "success");
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível deletar categoria", "error");
     }
   },
 
