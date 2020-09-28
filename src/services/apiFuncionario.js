@@ -1,4 +1,5 @@
 import api from './api';
+import swal from 'sweetalert';
 
 const apiFuncionario = {
 
@@ -18,7 +19,7 @@ const apiFuncionario = {
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Funcionário não encontrado", "error");
     }
   },
 
@@ -28,9 +29,10 @@ const apiFuncionario = {
         nome,
         cpf,
       });
+      swal("Sucesso!", "Funcionário cadastrado com sucesso!", "success");
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível cadastrar o funcionário", "error");
     }
   },
   update: async (id, nome, cpf) => {
@@ -39,20 +41,22 @@ const apiFuncionario = {
         nome,
         cpf,
       });
+      swal("Sucesso!", "Funcionário cadastrado com sucesso!", "success")
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível cadastrar o funcionário", "error");
     }
   },
 
   delete: async (id) => {
     try {
       const response = await api.delete(`funcionario/${id}`);
+      swal("Sucesso!", "Funcionário deletado com sucesso!", "success")
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível deletar o funcionário", "error");
     }
   },
 
