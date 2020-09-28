@@ -21,20 +21,17 @@ const apiProduto = {
     }
   },
 
-  create: async (
-    nome, descricao, qtdEstoque, valor,
-    idCategoria, idFuncionario, dataFabricacao, fotoLink,
-  ) => {
+  create: async (pdt) => {
+    console.log(pdt);
     try {
       const response = await api.post('produto', {
-        nome,
-        descricao,
-        qtdEstoque,
-        valor,
-        idCategoria,
-        idFuncionario,
-        dataFabricacao,
-        fotoLink,
+        nome: pdt.nome,
+        descricao: pdt.descricao,
+        qtdEstoque: pdt.qtdEstoque,
+        valor: pdt.valor,
+        idCategoria: pdt.idCategoria,
+        idFuncionario: pdt.idFuncionario,
+        fotoLink: pdt.fotoLink,
       });
       return response.data;
     } catch (error) {
