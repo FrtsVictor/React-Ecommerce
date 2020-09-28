@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import DateInput from './DateInput';
+import Selects from './styles';
+import apiProduto from '../../services/apiProduto';
 
 import SelectCategoria from './SelectCategoria';
 import SelectFuncionario from './SelectFuncionario';
@@ -26,21 +29,21 @@ function InputModalProduto() {
   const [dataFabricacao, setDataFabricacao] = useState('');
   const [fotoLink, setFotoLink] = useState('');
 
-  const getCategoryID = (value) => (setIdCategoria(value));
-  const getFuncID = (value) => (setIdFuncionario(value));
+  const getCategoryID = (catId) => (setIdCategoria(parseFloat(catId)));
+  const getFuncID = (funcId) => (setIdFuncionario(parseFloat(funcId)));
+  const getDate = (date) => (setDataFabricacao(date));
 
-  const handleFormSubmit = () => [
-    { nome },
-    { descricao },
-    { qtdEstoque },
-    { valor },
-    { idFuncionario },
-    { idCategoria },
-    { dataFabricacao },
-    { fotoLink },
-  ];
+  const handleFormSubmit = () => ({
+    nome,
+    descricao,
+    qtdEstoque,
+    valor,
+    idCategoria,
+    idFuncionario,
+    dataFabricacao,
+    fotoLink,
+  });
 
-  const newProduto = handleFormSubmit();
   return (
 
     <form className={classes.root} noValidate autoComplete="off">
@@ -63,22 +66,16 @@ function InputModalProduto() {
         label="Quantidade em estoque"
         variant="outlined"
         value={qtdEstoque}
-        onChange={(e) => { setqtdEstoque(e.target.value); }}
+        onChange={(e) => { setqtdEstoque(parseFloat(e.target.value)); }}
       />
       <TextField
         id="valor"
         label="Valor"
         variant="outlined"
         value={valor}
-        onChange={(e) => { setValor(e.target.value); }}
+        onChange={(e) => { setValor(parseFloat(e.target.value)); }}
       />
-      <TextField
-        id="data-fabricacao"
-        label="Data de Fabricação"
-        variant="outlined"
-        value={dataFabricacao}
-        onChange={(e) => { setDataFabricacao(e.target.value); }}
-      />
+
       <TextField
         id="link-foto"
         label="Foto do Produto (link)"
@@ -86,9 +83,25 @@ function InputModalProduto() {
         value={fotoLink}
         onChange={(e) => { setFotoLink(e.target.value); }}
       />
-      <SelectFuncionario getFuncID={getFuncID} />
-      <SelectCategoria getCategoryID={getCategoryID} />
-      <Button type="button" size="small" color="primary" onClick={() => console.log(newProduto)}>Adicionar Produto</Button>
+      <DateInput getDate={getDate} />
+      <Selects>
+        <SelectFuncionario getFuncID={getFuncID} />
+        <SelectCategoria getCategoryID={getCategoryID} />
+      </Selects>
+      <Button
+        variant="contained"
+        color="primary"
+        component="span"
+        style={{ width: '50%' }}
+        type="button"
+        onClick={() => {
+          apiProduto.create(handleFormSubmit())
+            .then((resp) => console.log(resp))
+            .catch((resp) => console.log(resp));
+        }}
+      >
+        Cadastrar
+      </Button>
     </form>
   );
 }
