@@ -35,8 +35,9 @@ export default function MultilineTextFields({ getCategoryID }) {
     <>
       <form className={classes.root} noValidate autoComplete="off">
         <TextField
-          id="standard-select-currency"
+          id="cat-id"
           select
+          outline
           label="CATEGORIA DO PRODUTO"
           value={labelOption}
           onChange={handleChange}
