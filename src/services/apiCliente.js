@@ -1,4 +1,5 @@
 import api from './api';
+import swal from 'sweetalert';
 
 const apiCliente = {
 
@@ -18,7 +19,7 @@ const apiCliente = {
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível encontrar cliente", "error");
     }
   },
 
@@ -40,9 +41,10 @@ const apiCliente = {
           cep: cliente.endereco.cep,
         },
       });
+      swal("Sucesso!", "Cliente criado com sucesso!", "success");
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível cadastrar cliente", "error");
     }
   },
   update: async (id, cliente) => {
@@ -63,10 +65,11 @@ const apiCliente = {
           cep: cliente.endereco.cep,
         },
       });
+      swal("Sucesso!", "Cliente atualizado com sucesso!", "success");
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível atualizar cliente", "error");
     }
   },
 
@@ -74,9 +77,11 @@ const apiCliente = {
     try {
       const response = await api.delete(`cliente/${id}`);
       console.log(response.data);
+      swal("Sucesso!", "Cliente deletado com sucesso!", "success");
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível deletar cliente", "error");
+
     }
   },
 
