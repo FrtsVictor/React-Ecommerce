@@ -8,6 +8,8 @@ import Carrinho from '../pages/Carrinho';
 import Bemvindo from '../pages/Bemvindo';
 import Login from '../pages/Login';
 import Route from './Route';
+import Sucesso from '../pages/Sucesso';
+import CarrinhoVazio from '../pages/CarrinhoVazio';
 
 const Routes = () => (
   <Switch>
@@ -19,6 +21,8 @@ const Routes = () => (
     <Route path="/admin" component={Admin} isPrivate />
     <Route path="/cadastro" component={Cadastro} isPrivate />
     <Route path="/carrinho" component={Carrinho} isPrivate />
+    <Route path="/sucesso" component={Sucesso} />
+    <Route path="/carrinhoVazio" component={CarrinhoVazio} />
 
   </Switch>
 
