@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Input from '../InputModalProduto';
+import { Button } from '@material-ui/core';
+
 
 function getModalStyle() {
   const top = 50;
@@ -47,9 +49,9 @@ export default function SimpleModal() {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Adicionar Produto
-      </button>
+      <Button type="button" size="default" color="primary" onClick={handleOpen}>
+        Adicionar
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
