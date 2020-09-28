@@ -1,4 +1,5 @@
 import api from './api';
+import swal from 'sweetalert';
 
 const apiProduto = {
 
@@ -33,9 +34,10 @@ const apiProduto = {
         idFuncionario: pdt.idFuncionario,
         fotoLink: pdt.fotoLink,
       });
+      swal("Sucesso!", "Produto cadastrado com sucesso!", "success");
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível cadastrar o produto!", "error");
     }
   },
   update: async (
@@ -56,18 +58,20 @@ const apiProduto = {
         dataFabricacao,
         fotoLink,
       });
+      swal("Sucesso!", "Produto atualizado com sucesso!", "success");
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível atualizar o produto!", "error");
     }
   },
 
   delete: async (id) => {
     try {
       const response = await api.delete(`produto/${id}`);
+      swal("Sucesso!", "Produto deletado com sucesso!", "success")
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Não foi possível deletar o produto!", "error");
     }
   },
 

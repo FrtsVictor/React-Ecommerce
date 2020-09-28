@@ -94,10 +94,9 @@ function InputModalProduto() {
         component="span"
         style={{ width: '50%' }}
         type="button"
+        
         onClick={() => {
-          apiProduto.create(handleFormSubmit())
-            .then((resp) => console.log(resp))
-            .catch((resp) => console.log(resp));
+          apiProduto.create(handleFormSubmit())   
         }}
       >
         Cadastrar
