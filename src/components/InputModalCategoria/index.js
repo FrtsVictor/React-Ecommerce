@@ -44,7 +44,13 @@ function InputModalCategoria() {
         onChange={(e) => { setDescricao(e.target.value); }}
       />
     
-      <Button type="button" size="small" color="primary" onClick={() => console.log(newCategoria)}>Adicionar Categoria</Button>
+      <Button 
+        variant="contained"
+        color="primary"
+        component="span"
+        style={{ width: '50%' }}
+        type="button"
+        onClick={() => console.log(newCategoria)}>Adicionar Categoria</Button>
     </form>
   );
 }

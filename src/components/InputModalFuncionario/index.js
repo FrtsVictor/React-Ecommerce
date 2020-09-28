@@ -42,7 +42,13 @@ export default function BasicTextFields() {
         onChange={(e) => { setCpf(e.target.value); }}
       />
     
-      <Button type="button" size="small" color="primary" onClick={() => console.log(newFuncionario)}>Adicionar Funcionário</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        component="span"
+        style={{ width: '50%' }}
+        type="button"
+      onClick={() => console.log(newFuncionario)}>Adicionar Funcionário</Button>
     </form>
   );
 }

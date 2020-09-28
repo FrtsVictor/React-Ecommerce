@@ -99,7 +99,7 @@ function InputModalProduto() {
           apiProduto.create(handleFormSubmit())   
         }}
       >
-        Cadastrar
+        Adicionar Produto
       </Button>
     </form>
   );
