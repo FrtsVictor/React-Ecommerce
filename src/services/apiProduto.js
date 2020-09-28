@@ -18,7 +18,7 @@ const apiProduto = {
       const response = await api.get(`produto/${id}`);
       return response.data;
     } catch (error) {
-      return console.log(error);
+      return swal("Ops!", "Produto não encontrado", "error");
     }
   },
 
