@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Input from '../InputModalProduto';
+import Input from '../FormModalProduto';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;

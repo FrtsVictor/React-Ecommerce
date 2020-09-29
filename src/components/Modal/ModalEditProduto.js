@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core';
-import EditInput from '../InputModalProduto/EditInput';
+import EditInput from '../FormModalProduto/FormEdit';
 
 function getModalStyle() {
   const top = 50;
@@ -45,10 +45,10 @@ export default function SimpleModal({
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <EditInput
-        nome={nome}
-        descricao={descricao}
+        name={nome}
+        desc={descricao}
         qtd={qtd}
-        valor={valor}
+        value={valor}
         func={func}
         cat={cat}
         dataFab={dataFab}

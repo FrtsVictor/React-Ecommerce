@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core';
-import EditInputFuncionario from '../InputModalFuncionario/EditInput';
+import FormEdit from '../FormModalFuncionario/FormEdit';
 
 function getModalStyle() {
   const top = 50;
@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleModal({ nome, cpf, id }) {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
 
@@ -43,7 +42,11 @@ export default function SimpleModal({ nome, cpf, id }) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <EditInputFuncionario nome={nome} cpf={cpf} id={id} />
+      <FormEdit
+        name={nome}
+        cpff={cpf}
+        id={id}
+      />
     </div>
   );
 
