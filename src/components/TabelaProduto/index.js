@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, {
-  useEffect, useState, useContext,
+  useEffect, useState, useContext, useCallback,
 } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -12,6 +12,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { ContextLists } from '../../services/ListsContext';
+import BtnDeleteCliente from './BtnDelete/BtnDeleteCliente';
+import BtnDeleteProduto from './BtnDelete/BtnDeleteProduto';
+import BtnDeleteCategoria from './BtnDelete/BtnDeleteCategoria';
+import BtnDeleteFuncionario from './BtnDelete/BtnDeleteFuncionario';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -40,24 +44,12 @@ const useStyles = makeStyles({
   },
 });
 
-// _______________________Create Coluns
-
-const makeColHead = (chavesColuna) => chavesColuna.reduce((column, newCol) => {
-  const coll = {
-    id: newCol,
-    label: newCol,
-    minWidth: 170,
-    align: 'center',
-  };
-  return [...column, coll];
-}, []);
-
 export default function StickyHeadTable({ selectedColumn }) {
   // TABLE DATA
   const { listaProduto } = useContext(ContextLists);
   const { listaCategoria } = useContext(ContextLists);
   const { listaFunc } = useContext(ContextLists);
-
+  const { listaCliente } = useContext(ContextLists);
   // TABLE STYLES
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -66,12 +58,46 @@ export default function StickyHeadTable({ selectedColumn }) {
   // TABLE COLUMNS
   const [rows, setRows] = useState([]);
   const [col, setCol] = useState([]);
-  const chavesProduto = ['id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
-  const chavesCategoria = ['id', 'nome', 'descricao'];
-  const chavesFuncionario = ['id', 'nome', 'cpf'];
+  const chavesProduto = ['btn', 'id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
+  const chavesCategoria = ['btn', 'id', 'nome', 'descricao'];
+  const chavesFuncionario = ['btn', 'id', 'nome', 'cpf'];
+  const chavesCliente = ['btn', 'id', 'nome', 'usuario', 'cpf', 'email', 'dataNascimento', 'rua', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'cep'];
 
   // Table Switcher
   const [tableName, seTableName] = useState('');
+
+  // _______________________Create Coluns
+
+  const makeColHead = useCallback((chavesColuna) => chavesColuna.reduce((column, newCol) => {
+    const coll = {
+      id: newCol,
+      label: newCol,
+      minWidth: 170,
+      align: 'center',
+    };
+    return [...column, coll];
+  }, []), []);
+
+  // Tranfer obj inside obj in only one obj
+
+  const listaObj = listaCliente.reduce((acc, cliente) => {
+    const newCliente = {
+      id: cliente.id,
+      nome: cliente.nome,
+      usuario: cliente.usuario,
+      cpf: cliente.cpf,
+      email: cliente.email,
+      dataNascimento: cliente.dataNascimento,
+      rua: cliente.endereco.rua,
+      numero: cliente.endereco.numero,
+      complemento: cliente.endereco.complemento,
+      bairro: cliente.endereco.bairro,
+      cidade: cliente.endereco.cidade,
+      estado: cliente.endereco.estado,
+      cep: cliente.endereco.cep,
+    };
+    return [...acc, newCliente];
+  }, []);
 
   useEffect(() => {
     seTableName(selectedColumn);
@@ -81,24 +107,19 @@ export default function StickyHeadTable({ selectedColumn }) {
     if (tableName === 'Produto') {
       setCol(makeColHead(chavesProduto));
       setRows([{}]);
-      console.log(selectedColumn);
       setRows(listaProduto);
-      console.log('prood, rows ', rows);
-      console.log('prod listapdo', listaProduto);
     } if (tableName === 'Categoria') {
       setCol(makeColHead(chavesCategoria));
       setRows([{}]);
-      console.log(selectedColumn);
       setRows(listaCategoria);
-      console.log('cat rows', rows);
-      console.log('cat lista', listaCategoria);
     } if (tableName === 'Funcionario') {
       setCol(makeColHead(chavesFuncionario));
       setRows([{}]);
-      console.log(selectedColumn);
       setRows(listaFunc);
-      console.log('func rows', rows);
-      console.log('func lista', listaFunc);
+    } if (tableName === 'Cliente') {
+      setCol(makeColHead(chavesCliente));
+      setRows([{}]);
+      setRows(listaObj);
     }
   }, [tableName]);
 
@@ -112,7 +133,7 @@ export default function StickyHeadTable({ selectedColumn }) {
   };
 
   return (
-    <Paper classnome={classes.root} style={{width: '97.5%', marginLeft: '18px' }}>
+    <Paper classnome={classes.root} style={{ width: '97.5%', marginLeft: '18px' }}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -137,8 +158,19 @@ export default function StickyHeadTable({ selectedColumn }) {
                   const value = row[column.id];
                   return (
                     <StyledTableCell key={column.id} align={column.align}>
-                      {console.log('tb-vl', value)}
-                      { value}
+                      { column.id === 'btn' && tableName === 'Categoria'
+                        ? (
+                          <BtnDeleteCategoria id={row.id} />
+                        ) : column.id === 'btn' && tableName === 'Funcionario'
+                          ? (
+                            <BtnDeleteFuncionario id={row.id} />
+                          ) : column.id === 'btn' && tableName === 'Cliente'
+                            ? (
+                              <BtnDeleteCliente id={row.id} />
+                            ) : column.id === 'btn' && tableName === 'Produto'
+                              ? (
+                                <BtnDeleteProduto id={row.id} />
+                              ) : value}
                     </StyledTableCell>
                   );
                 })}
