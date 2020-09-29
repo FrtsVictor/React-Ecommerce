@@ -14,9 +14,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../hook/auth';
+import Footer from '../../components/Footer';
+import Nav from '../../components/Nav';
+import StyledCadastro from '../../components/FormCadastro/styles';
 
 function Copyright() {
   return (
+   
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://github.com/FrtsVictor/React-Ecommerce">
@@ -38,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -79,6 +83,9 @@ export default function SignIn() {
   };
 
   return (
+    <>
+    <Nav/>
+     <StyledCadastro>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -116,16 +123,15 @@ export default function SignIn() {
             autoComplete="current-password"
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={<Checkbox value="remember" color="gray" />}
             label="Remember me"
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
             className={classes.submit}
-          >
+            id="button">
             {loading ? 'Loading' : 'Entrar'}
           </Button>
           <Grid container>
@@ -146,5 +152,9 @@ export default function SignIn() {
         <Copyright />
       </Box>
     </Container>
+    </StyledCadastro>
+    <Footer/>
+    </>
   );
+  
 }
