@@ -1,5 +1,5 @@
-import api from './api';
 import swal from 'sweetalert';
+import api from './api';
 
 const apiProduto = {
 
@@ -18,7 +18,7 @@ const apiProduto = {
       const response = await api.get(`produto/${id}`);
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Produto não encontrado", "error");
+      return swal('Ops!', 'Produto não encontrado', 'error');
     }
   },
 
@@ -34,44 +34,38 @@ const apiProduto = {
         idFuncionario: pdt.idFuncionario,
         fotoLink: pdt.fotoLink,
       });
-      swal("Sucesso!", "Produto cadastrado com sucesso!", "success");
+      swal('Sucesso!', 'Produto cadastrado com sucesso!', 'success');
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível cadastrar o produto!", "error");
+      return swal('Ops!', 'Não foi possível cadastrar o produto!', 'error');
     }
   },
-  update: async (
-    id, nome, descricao, qtdEstoque, valor,
-    idCategoria, nomeCategoria, idFuncionario,
-    nomeFuncionario, dataFabricacao, fotoLink,
-  ) => {
+  update: async (id, pdt) => {
     try {
-      const response = await api.put(`produto${id}`, {
-        nome,
-        descricao,
-        qtdEstoque,
-        valor,
-        idCategoria,
-        nomeCategoria,
-        idFuncionario,
-        nomeFuncionario,
-        dataFabricacao,
-        fotoLink,
+      console.log(pdt);
+      const response = await api.put(`produto/${id}`, {
+        nome: pdt.nome,
+        descricao: pdt.descricao,
+        qtdEstoque: pdt.qtdEstoque,
+        valor: pdt.valor,
+        idCategoria: pdt.idCategoria,
+        idFuncionario: pdt.idFuncionario,
+        fotoLink: pdt.fotoLink,
       });
-      swal("Sucesso!", "Produto atualizado com sucesso!", "success");
+      swal('Sucesso!', 'Produto atualizado com sucesso!', 'success');
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível atualizar o produto!", "error");
+      return swal('Ops!', 'Não foi possível atualizar o produto!', 'error');
     }
   },
 
   delete: async (id) => {
     try {
       const response = await api.delete(`produto/${id}`);
-      swal("Sucesso!", "Produto deletado com sucesso!", "success")
+      swal('Sucesso!', 'Produto deletado com sucesso!', 'success');
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível deletar o produto!", "error");
+      return swal('Ops!', 'Não foi possível deletar o produto!', 'error');
     }
   },
 
