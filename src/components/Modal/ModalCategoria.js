@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import InputModalCategoria from '../InputModalCategoria';
 import { Button } from '@material-ui/core';
+import InputModalCategoria from '../InputModalCategoria';
 
 function getModalStyle() {
   const top = 50;
@@ -18,8 +18,8 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 800,
-    height: 500,
+    width: 400,
+    height: 300,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -50,8 +50,8 @@ export default function SimpleModal() {
   return (
     <div>
       <Button type="button" size="default" color="primary" onClick={handleOpen}>
-          Adicionar
-      </Button> 
+        Adicionar
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
