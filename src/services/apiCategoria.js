@@ -1,5 +1,5 @@
-import api from './api';
 import swal from 'sweetalert';
+import api from './api';
 
 const apiCategoria = {
 
@@ -19,33 +19,33 @@ const apiCategoria = {
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Categoria não encontrada", "error");
+      return swal('Ops!', 'Categoria não encontrada', 'error');
     }
   },
 
-  create: async (nome, descricao) => {
+  create: async (cat) => {
     try {
       const response = await api.post('categoria', {
-        nome,
-        descricao,
+        nome: cat.nome,
+        descricao: cat.descricao,
       });
-      swal("Sucesso!", "Categoria criada com sucesso!", "success");
+      swal('Sucesso!', 'Categoria criada com sucesso!', 'success');
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível criar categoria", "error");
+      return swal('Ops!', 'Não foi possível criar categoria', 'error');
     }
   },
-  update: async (id, nome, descricao) => {
+  update: async (id, categoria) => {
     try {
-      const response = await api.put(`categoria${id}`, {
-        nome,
-        descricao,
+      const response = await api.put(`categoria/${id}`, {
+        nome: categoria.nome,
+        descricao: categoria.descricao,
       });
-      swal("Sucesso!", "Categoria atualizada com sucesso!", "success");
+      swal('Sucesso!', 'Categoria atualizada com sucesso!', 'success');
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível atualizar categoria", "error");
+      return swal('Ops!', 'Não foi possível atualizar categoria', 'error');
     }
   },
 
@@ -53,10 +53,10 @@ const apiCategoria = {
     try {
       const response = await api.delete(`categoria/${id}`);
       console.log(response.data);
-      swal("Sucesso!", "Categoria deletada com sucesso!", "success");
+      swal('Sucesso!', 'Categoria deletada com sucesso!', 'success');
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível deletar categoria", "error");
+      return swal('Ops!', 'Não foi possível deletar categoria', 'error');
     }
   },
 

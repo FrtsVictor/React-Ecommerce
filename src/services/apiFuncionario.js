@@ -1,5 +1,5 @@
-import api from './api';
 import swal from 'sweetalert';
+import api from './api';
 
 const apiFuncionario = {
 
@@ -19,44 +19,44 @@ const apiFuncionario = {
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Funcionário não encontrado", "error");
+      return swal('Ops!', 'Funcionário não encontrado', 'error');
     }
   },
 
-  create: async (nome, cpf) => {
+  create: async (funcionario) => {
     try {
       const response = await api.post('funcionario', {
-        nome,
-        cpf,
+        nome: funcionario.nome,
+        cpf: funcionario.cpf,
       });
-      swal("Sucesso!", "Funcionário cadastrado com sucesso!", "success");
+      swal('Sucesso!', 'Funcionário cadastrado com sucesso!', 'success');
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível cadastrar o funcionário", "error");
+      return swal('Ops!', 'Não foi possível cadastrar o funcionário', 'error');
     }
   },
-  update: async (id, nome, cpf) => {
+  update: async (id, funcionario) => {
     try {
-      const response = await api.put(`funcionario${id}`, {
-        nome,
-        cpf,
+      const response = await api.put(`funcionario/${id}`, {
+        nome: funcionario.nome,
+        cpf: funcionario.cpf,
       });
-      swal("Sucesso!", "Funcionário cadastrado com sucesso!", "success")
+      swal('Sucesso!', 'Funcionário cadastrado com sucesso!', 'success');
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível cadastrar o funcionário", "error");
+      return swal('Ops!', 'Não foi possível cadastrar o funcionário', 'error');
     }
   },
 
   delete: async (id) => {
     try {
       const response = await api.delete(`funcionario/${id}`);
-      swal("Sucesso!", "Funcionário deletado com sucesso!", "success")
+      swal('Sucesso!', 'Funcionário deletado com sucesso!', 'success');
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return swal("Ops!", "Não foi possível deletar o funcionário", "error");
+      return swal('Ops!', 'Não foi possível deletar o funcionário', 'error');
     }
   },
 
