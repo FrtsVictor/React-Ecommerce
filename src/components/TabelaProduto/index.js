@@ -3,6 +3,7 @@ import React, {
   useEffect, useState, useContext, useCallback,
 } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+// Tables
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,10 +13,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { ContextLists } from '../../services/ListsContext';
+// Buttons
 import BtnDeleteCliente from './BtnDelete/BtnDeleteCliente';
 import BtnDeleteProduto from './BtnDelete/BtnDeleteProduto';
 import BtnDeleteCategoria from './BtnDelete/BtnDeleteCategoria';
 import BtnDeleteFuncionario from './BtnDelete/BtnDeleteFuncionario';
+// Modals
+import ModalCategoria from '../Modal/ModalEditCategoria';
+import ModalFuncionario from '../Modal/ModalEditFuncionario';
+import ModalProduto from '../Modal/ModalEditProduto';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -58,10 +64,10 @@ export default function StickyHeadTable({ selectedColumn }) {
   // TABLE COLUMNS
   const [rows, setRows] = useState([]);
   const [col, setCol] = useState([]);
-  const chavesProduto = ['btn', 'id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
-  const chavesCategoria = ['btn', 'id', 'nome', 'descricao'];
-  const chavesFuncionario = ['btn', 'id', 'nome', 'cpf'];
-  const chavesCliente = ['btn', 'id', 'nome', 'usuario', 'cpf', 'email', 'dataNascimento', 'rua', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'cep'];
+  const chavesProduto = ['excluir', 'id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
+  const chavesCategoria = ['excluir', 'id', 'nome', 'descricao'];
+  const chavesFuncionario = ['excluir', 'id', 'nome', 'cpf'];
+  const chavesCliente = ['excluir', 'id', 'nome', 'usuario', 'cpf', 'email', 'dataNascimento', 'rua', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'cep'];
 
   // Table Switcher
   const [tableName, seTableName] = useState('');
@@ -102,6 +108,8 @@ export default function StickyHeadTable({ selectedColumn }) {
   useEffect(() => {
     seTableName(selectedColumn);
   }, [selectedColumn]);
+
+  // select table views
 
   useEffect(() => {
     if (tableName === 'Produto') {
@@ -158,18 +166,36 @@ export default function StickyHeadTable({ selectedColumn }) {
                   const value = row[column.id];
                   return (
                     <StyledTableCell key={column.id} align={column.align}>
-                      { column.id === 'btn' && tableName === 'Categoria'
+                      { column.id === 'excluir' && tableName === 'Categoria'
                         ? (
-                          <BtnDeleteCategoria id={row.id} />
-                        ) : column.id === 'btn' && tableName === 'Funcionario'
+                          <>
+                            <ModalCategoria nome={row.nome} descricao={row.descricao} id={row.id} />
+                            <BtnDeleteCategoria id={row.id} />
+                          </>
+                        ) : column.id === 'excluir' && tableName === 'Funcionario'
                           ? (
-                            <BtnDeleteFuncionario id={row.id} />
-                          ) : column.id === 'btn' && tableName === 'Cliente'
+                            <>
+                              <ModalFuncionario nome={row.nome} cpf={row.cpf} id={row.id} />
+                              <BtnDeleteFuncionario id={row.id} />
+                            </>
+                          ) : column.id === 'excluir' && tableName === 'Cliente'
                             ? (
                               <BtnDeleteCliente id={row.id} />
-                            ) : column.id === 'btn' && tableName === 'Produto'
+                            ) : column.id === 'excluir' && tableName === 'Produto'
                               ? (
-                                <BtnDeleteProduto id={row.id} />
+                                <>
+                                  <ModalProduto
+                                    nome={row.nome}
+                                    descricao={row.descricao}
+                                    qtd={row.qtdEstoque}
+                                    valor={row.valor}
+                                    func={row.idFuncionario}
+                                    cat={row.idCategoria}
+                                    dataFab={row.dataFabricacao}
+                                    id={row.id}
+                                  />
+                                  <BtnDeleteProduto id={row.id} />
+                                </>
                               ) : value}
                     </StyledTableCell>
                   );
