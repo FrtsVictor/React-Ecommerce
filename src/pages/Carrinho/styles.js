@@ -1,54 +1,160 @@
 import styled from 'styled-components';
-import bg from '../../assets/imgs/bg.jpg'
+
 
 export const Container = styled.div`
-    .background{
-        background-image: url(${bg});
-        height: 100vh;
-        width: 100vw;
+.container{
+    display:flex;
+    justify-content: center;
+}
+
+.titulo{
+    margin-left: 40px;
+    margin-top: 40px;
+    color: #5a575d;
+    font-family: 'Roboto';
+    font-size:28px;
+    font-weight:600;  
+}
+
+`;
+
+export const CartProducts = styled.div`
+
+.box-product{
+    display: flex;
+    justify-content:space-between;
+    width:1200px;
+    height: 100px;
+    background-color: #bdbdbe;
+    margin-left: 40px;
+    margin-top: 60px;
+}
+img{
+    width: 90px;
+    height: 90px;
+    justify-content: flex-start;
+    margin: 5px 0 5px 10px;
+}
+.trash{
+    justify-content:flex-end;
+    color:#3b393d; 
+    margin-right: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.dadosItem{
+    color:#3b393d;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: -100px;
+    margin-top: 10px;
+}
+    .nome {
+        font-size: 18px;
+        font-weight: 600;
+
     }
 
     .descricao{
-        text-align: center;
-        color: #d6d4d7;
-        font-size: 28px;
-        margin-top: 40px;
-        font-family: 'Roboto';
+        font-size: 14px;
+        font-weight: 400;
+        max-width: 20ch;
+        margin-top: 5px;
+    }
+
+    .qtd{
+        display: flex;
+        color:#3b393d; 
+        margin-top: 30px;
+    }
+    
+    .qtd p{
+        color:#3b393d;
+        margin-top: 5px;
         font-weight: 600;
+        font-size: 16px;
+        padding: 5px;
     }
 
-    .btn {
-        display:flex;
-        justify-content: center;
-        margin-top: 80px;
+    .totalItem {
+        display: flex;
+        margin-top: 40px;
+    }
+    
+    .calclItem{
+        display: flex;
+        margin-top: 40px;
     }
 
-    button{
-        width: 200px;
-        height: 50px;
-        font-size: 24px;
-        font-weight:400;
+    .price{
+        color:#3b393d; 
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .calculoBox{
+        font-size: 14px;
+    }
+`;
+
+export const CartFinalizar = styled.div`
+
+
+#container-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 60px;
+    
+}
+
+ .btn-finalizar {
+    margin-bottom: 20px;
+    margin-top: 20px;    
+}
+
+button{
+        width:200px;  
+        height:50px;	
+        font-size: 16px;
+        font-weight:600;
         font-family: 'Roboto';
         background-color: #6d3cab;
-        color: #d6d4d7;
+        color: #fff;
         border-radius: 5px;
+        border: none;
         transition: background 0.5s;
     }
-
     button:hover{
         background-color: #502784;
     }
-
+    i{
+      margin-right:10px;  
+    } 
 `;
 
-    export const Logo = styled.div`
-    .logo{
+export const Total = styled.div`
+    
+    #container-total{
         display: flex;
-        justify-content: center;
-        padding-top: 80px;
-        
+        justify-content: flex-end;
+        margin-right: 60px;
     }
 
-`;
+    .total{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width:200px;
+    height: 100px;
+    background-color: #bdbdbe;  
+    
+}
 
-
+    .total p{
+        color:#3b393d; 
+        font-weight: 600;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 20px;
+    }
+`; 
