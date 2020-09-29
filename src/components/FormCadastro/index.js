@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import StyledCadastro from './styles';
+import apiCliente from '../../services/apiCliente';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,46 +27,66 @@ export default function FullWidthGrid() {
   const [usuario, setUsuario] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
-  const [dataNasc, setDataNasc] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('');
+  //   Endereco
   const [rua, setRua] = useState('');
   const [bairro, setBairro] = useState('');
   const [complemento, setComplemento] = useState('');
   const [cep, setCep] = useState('');
   const [cidade, setCidade] = useState('');
+  const [numero, setNumero] = useState(0);
+  const [estado, setEstado] = useState('');
 
-  const printClient = () => {
+  const dataConverter = useCallback(
+    () => {
+      console.log(dataNascimento);
+      const dataIso = new Date(dataNascimento).toISOString();
+      const dataFormatada = dataIso.slice(0, 17).concat('00Z');
+      console.log(dataFormatada);
+      setDataNascimento(dataFormatada);
+    }, [dataNascimento],
+  );
+
+  const mountCliente = () => (
     setCliente({
       nome,
       usuario,
       email,
       cpf,
-      dataNasc,
-      endereco: [
-        { rua },
-        { bairro },
-        { complemento },
-        { cep },
-        { cidade },
-      ],
-    });
+      dataNascimento,
+      endereco: {
+        rua,
+        bairro,
+        numero,
+        complemento,
+        cep,
+        cidade,
+        estado,
+      },
+    })
+  );
+
+  const send = () => {
+    dataConverter();
+    mountCliente();
     console.log(cliente);
+    apiCliente.create(cliente)
+      .then((resp) => resp)
+      .catch((resp) => resp);
   };
 
   const classes = useStyles();
 
   return (
     <StyledCadastro className={classes.root}>
-
       <form className={classes.root} noValidate autoComplete="off">
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
-
             <h2
-              style={{ textAlign: 'center', color:'#333' }}
+              style={{ textAlign: 'center', color: '#333', marginBottom: '30px' }}
             >
               Bem Vindo! Precisamos do seu Cadastro para login.
             </h2>
-
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
@@ -77,7 +98,10 @@ export default function FullWidthGrid() {
                 margin="normal"
                 name="nome"
                 value={nome}
-                onChange={(e) => { setNome(e.target.value); }}
+                onChange={(e) => {
+                  console.log(e.target.name);
+                  setNome(e.target.value);
+                }}
                 InputLabelProps={{
                   shrink: true,
                   required: true,
@@ -139,27 +163,28 @@ export default function FullWidthGrid() {
           <Grid item xs={6} sm={3}>
             <Paper className={classes.paper}>
               <TextField
-                id="standard-full-width"
-                label="*Data Nascimento"
-                style={{ margin: 8 }}
                 fullWidth
-                type="date"
+                id="date"
                 margin="normal"
-                name="dataNasc"
-                value={dataNasc}
-                onChange={(e) => { setDataNasc(e.target.value); }}
+                style={{ margin: 8 }}
+                label="DataNascimento"
+                type="date"
+                value={dataNascimento}
+                onChange={(e) => {
+                  setDataNascimento(e.target.value);
+                }}
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={12}>
-            <Paper className={classes.paper}>
-              Endereço
-            </Paper>
+        </Grid>
+        {/* //___________________________________ENDERECO________________________________ */}
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={12} style={{ marginTop: '20px' }}>
+            <h3>Endereço</h3>
           </Grid>
-          {/* //___________________________________ENDERECO________________________________ */}
           <Grid item xs={12} sm={8}>
             <Paper className={classes.paper}>
               <TextField
@@ -195,7 +220,7 @@ export default function FullWidthGrid() {
               />
             </Paper>
           </Grid>
-          <Grid item xs={5} sm={4}>
+          <Grid item xs={4} sm={4}>
             <Paper className={classes.paper}>
               <TextField
                 id="standard-full-width"
@@ -206,6 +231,23 @@ export default function FullWidthGrid() {
                 name="complemento"
                 value={complemento}
                 onChange={(e) => { setComplemento(e.target.value); }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={1} sm={4}>
+            <Paper className={classes.paper}>
+              <TextField
+                id="standard-full-width"
+                label="*Numero"
+                style={{ margin: 8 }}
+                fullWidth
+                margin="normal"
+                name="numero"
+                value={numero}
+                onChange={(e) => { setNumero(parseInt(e.target.value, 10)); }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -247,6 +289,23 @@ export default function FullWidthGrid() {
               />
             </Paper>
           </Grid>
+          <Grid item xs={12} sm={4}>
+            <Paper className={classes.paper}>
+              <TextField
+                id="standard-full-width"
+                label="*Estado"
+                style={{ margin: 8 }}
+                fullWidth
+                margin="normal"
+                name="estado"
+                value={estado}
+                onChange={(e) => { setEstado(e.target.value); }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Paper>
+          </Grid>
           <Grid
             item
             xs={12}
@@ -256,14 +315,14 @@ export default function FullWidthGrid() {
               display: 'grid',
             }}
           >
-            <Button id="button"
+            <Button
+              id="button"
               variant="contained"
-              onClick={() => printClient()}
+              onClick={() => send()}
               style={{
                 height: '50px',
                 width: '150px',
-                
-               }}
+              }}
             >
               Enviar
             </Button>
