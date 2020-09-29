@@ -39,7 +39,7 @@ const  removeFromCart = (produto) => {
 
    if(itens.length === 0){
     window.location.href = "/empty"
-   }else{
+   }else{  
     window.location.href = "/success"
    }
   }
