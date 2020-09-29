@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Navbar = styled.div`
 
 div {
+    display: flex;
     height: 150px;
     width: 100%;
     background: #6D3CAB;
@@ -16,6 +17,7 @@ div {
 
 .logo {
     margin-left: 40px;  
+    margin-right: 40px;
 }
 
 li{
