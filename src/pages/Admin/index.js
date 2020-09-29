@@ -9,7 +9,7 @@ import Nav from '../../components/Nav';
 import StyledTitle from './styles';
 
 const Admin = () => {
-  const [tableTitle, setTableTittle] = useState('Bem vindo ao Admin!');// Pegando a pagina clicada
+  const [tableTitle, setTableTittle] = useState('Bem vindo ao Admin!');
 
   const SetTableName = (TableTitle) => (setTableTittle(TableTitle));
 
