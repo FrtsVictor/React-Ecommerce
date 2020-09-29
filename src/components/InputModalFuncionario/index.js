@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
+import apiFuncionario from '../../services/apiFuncionario';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,13 +18,15 @@ export default function BasicTextFields() {
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
 
+  const createFunc = () => (
+    {
+      nome,
+      cpf,
+    }
+  );
 
-  const handleFormSubmit = () => [
-    { nome },
-    { cpf },
-  ];
+  const newFunc = createFunc();
 
-  const newFuncionario = handleFormSubmit();
   return (
 
     <form className={classes.root} noValidate autoComplete="off">
@@ -41,14 +44,19 @@ export default function BasicTextFields() {
         value={cpf}
         onChange={(e) => { setCpf(e.target.value); }}
       />
-    
+
       <Button
         variant="contained"
         color="primary"
         component="span"
         style={{ width: '50%' }}
         type="button"
-      onClick={() => console.log(newFuncionario)}>Adicionar Funcionário</Button>
+        onClick={() => apiFuncionario.create(newFunc)
+          .then((resp) => console.log(resp))
+          .catch((resp) => console.log(resp))}
+      >
+        Adicionar Funcionário
+      </Button>
     </form>
   );
 }

@@ -39,7 +39,6 @@ export default function FullWidthGrid() {
 
   const dataConverter = useCallback(
     () => {
-      console.log(dataNascimento);
       const dataIso = new Date(dataNascimento).toISOString();
       const dataFormatada = dataIso.slice(0, 17).concat('00Z');
       console.log(dataFormatada);
