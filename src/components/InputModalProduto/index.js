@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -29,9 +29,9 @@ function InputModalProduto() {
   const [dataFabricacao, setDataFabricacao] = useState('');
   const [fotoLink, setFotoLink] = useState('');
 
-  const getCategoryID = (catId) => (setIdCategoria(parseFloat(catId)));
-  const getFuncID = (funcId) => (setIdFuncionario(parseFloat(funcId)));
-  const getDate = (date) => (setDataFabricacao(date));
+  const getCategoryID = useCallback((catId) => (setIdCategoria(parseFloat(catId))), []);
+  const getFuncID = useCallback((funcId) => (setIdFuncionario(parseFloat(funcId))), []);
+  const getDate = useCallback((date) => (setDataFabricacao(date)), []);
 
   const handleFormSubmit = () => ({
     nome,
@@ -94,12 +94,13 @@ function InputModalProduto() {
         component="span"
         style={{ width: '50%' }}
         type="button"
-        
         onClick={() => {
-          apiProduto.create(handleFormSubmit())   
+          apiProduto.create(handleFormSubmit())
+            .then((resp) => console.log(resp))
+            .catch((resp) => console.log(resp));
         }}
       >
-        Adicionar Produto
+        Cadastrar
       </Button>
     </form>
   );
