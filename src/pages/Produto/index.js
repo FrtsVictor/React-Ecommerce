@@ -60,6 +60,26 @@ const Produto = () => {
     loadCategoria();
   }, [filtroCategoria, filtroPreco]);
 
+  
+  const addCart = (produto) => {
+    const itens = JSON.parse(localStorage.getItem('cartItems')) || [];
+    let alreadyExists = false;
+    if(itens && itens.length > 0){
+      itens.forEach((pdt) => {
+        if (pdt.id === produto.id) {
+          alreadyExists = true;
+          pdt.count++;
+        }
+      });
+    } 
+   
+    if (!alreadyExists) {
+      itens.push({ ...produto, count:1 });     
+    }
+    localStorage.setItem("cartItems", JSON.stringify(itens));
+
+  }
+
 
   return (
     <>
@@ -112,7 +132,7 @@ const Produto = () => {
             <h1>{pdt.nome}</h1>
             <p className="price">R${pdt.valor}</p>
             <p className="descricao">{pdt.descricao}</p>
-            <button>Adicionar ao carrinho</button>
+            <button onClick={() => addCart(pdt)}>Adicionar ao carrinho</button>
           </div>
         </div>
 
