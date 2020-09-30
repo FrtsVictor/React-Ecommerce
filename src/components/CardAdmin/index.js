@@ -20,9 +20,8 @@ const useStyles = makeStyles({
   },
 });
 
-const ImgMediaCard = ({ title, SetTableName, ModalItem }) => {
+const ImgMediaCard = ({ title, SetTableName }) => {
   const classes = useStyles();
-  console.log('modalItem', ModalItem);
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -52,8 +51,6 @@ const ImgMediaCard = ({ title, SetTableName, ModalItem }) => {
             <ModalCategoria />
           ) : title === 'Funcionario' ? (
             <ModalFuncionario />
-          // ) : title === 'Cliente' ? (
-          //   <ModalCliente />
           ) : ''}
         </StyledButton>
       </CardActions>
