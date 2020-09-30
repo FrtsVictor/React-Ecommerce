@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
+import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ImgMediaCard({ title, SetTableName, ModalItem }) {
+const ImgMediaCard = ({ title, SetTableName, ModalItem }) => {
   const classes = useStyles();
   console.log('modalItem', ModalItem);
   return (
@@ -59,4 +59,6 @@ export default function ImgMediaCard({ title, SetTableName, ModalItem }) {
       </CardActions>
     </Card>
   );
-}
+};
+
+export default memo(ImgMediaCard);
