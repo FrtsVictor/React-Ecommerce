@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, {
+  useState, useCallback, useEffect, memo,
+} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -22,14 +24,14 @@ function InputModalProduto({
   name, desc, qtd, value, func, cat, dataFab, id,
 }) {
   const classes = useStyles();
-  const [nome, setNome] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [qtdEstoque, setqtdEstoque] = useState('');
+  const [nome, setNome] = useState();
+  const [descricao, setDescricao] = useState();
+  const [qtdEstoque, setqtdEstoque] = useState();
   const [valor, setValor] = useState();
-  const [idCategoria, setIdCategoria] = useState('');
-  const [idFuncionario, setIdFuncionario] = useState('');
-  const [dataFabricacao, setDataFabricacao] = useState('');
-  const [fotoLink, setFotoLink] = useState('');
+  const [idCategoria, setIdCategoria] = useState();
+  const [idFuncionario, setIdFuncionario] = useState();
+  const [dataFabricacao, setDataFabricacao] = useState();
+  const [fotoLink, setFotoLink] = useState();
 
   const getCategoryID = useCallback((catId) => (setIdCategoria(parseFloat(catId))), []);
   const getFuncID = useCallback((funcId) => (setIdFuncionario(parseFloat(funcId))), []);
@@ -46,8 +48,8 @@ function InputModalProduto({
     fotoLink,
   });
 
-  const updateProd = useCallback(
-    () => {
+  useEffect(() => {
+    const updateProd = () => {
       setNome(name);
       setDescricao(desc);
       setqtdEstoque(qtd);
@@ -55,13 +57,10 @@ function InputModalProduto({
       setIdCategoria(cat);
       setIdFuncionario(func);
       setDataFabricacao(dataFab);
-    },
-    [nome],
-  );
+    };
 
-  useEffect(() => {
     updateProd();
-  }, []);
+  }, [name]);
 
   return (
 
@@ -125,4 +124,4 @@ function InputModalProduto({
   );
 }
 
-export default InputModalProduto;
+export default memo(InputModalProduto);
