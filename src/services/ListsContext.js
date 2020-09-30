@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, {
-  createContext, useState, useEffect, useCallback,
+  createContext, useState, useEffect,
 } from 'react';
 import apiProduto from './apiProduto';
 import apiCategoria from './apiCategoria';
@@ -16,8 +16,9 @@ const ListProvider = ({ children }) => {
   const [listaCliente, setListaCliente] = useState([]);
 
   const sortList = (list) => list.sort((a, b) => (a.nome > b.nome ? 1 : a.nome < b.nome ? -1 : 0));
-  const loadLists = useCallback(
-    () => {
+
+  useEffect(() => {
+    const loadLists = () => {
       apiProduto.loadAll()
         .then((response) => {
           setListaProduto(sortList(response));
@@ -42,11 +43,7 @@ const ListProvider = ({ children }) => {
         }).catch(() => {
           console.log('Something is wrong, sorry (:');
         });
-    },
-    [],
-  );
-
-  useEffect(() => {
+    };
     loadLists();
   }, []);
 
