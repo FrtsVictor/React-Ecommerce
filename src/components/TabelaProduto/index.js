@@ -64,6 +64,7 @@ export default function StickyHeadTable({ selectedColumn }) {
   // TABLE COLUMNS
   const [rows, setRows] = useState([]);
   const [col, setCol] = useState([]);
+  // Chaves Coluna
   const chavesProduto = ['excluir', 'id', 'nome', 'descricao', 'qtdEstoque', 'valor', 'idCategoria', 'nomeCategoria', 'idFuncionario', 'nomeFuncionario', 'dataFabricacao', 'fotoLink'];
   const chavesCategoria = ['excluir', 'id', 'nome', 'descricao'];
   const chavesFuncionario = ['excluir', 'id', 'nome', 'cpf'];
@@ -114,22 +115,20 @@ export default function StickyHeadTable({ selectedColumn }) {
   useEffect(() => {
     if (tableName === 'Produto') {
       setCol(makeColHead(chavesProduto));
-      setRows([{}]);
       setRows(listaProduto);
     } if (tableName === 'Categoria') {
       setCol(makeColHead(chavesCategoria));
-      setRows([{}]);
       setRows(listaCategoria);
     } if (tableName === 'Funcionario') {
       setCol(makeColHead(chavesFuncionario));
-      setRows([{}]);
       setRows(listaFunc);
     } if (tableName === 'Cliente') {
       setCol(makeColHead(chavesCliente));
-      setRows([{}]);
       setRows(listaObj);
     }
-  }, [tableName]);
+  }, [tableName, chavesProduto, chavesCategoria,
+    chavesFuncionario, chavesCliente, listaCategoria,
+    listaFunc, listaObj, listaProduto, makeColHead]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
