@@ -60,7 +60,7 @@ function InputModalProduto({
     };
 
     updateProd();
-  }, [name]);
+  }, [name, desc, qtd, value, func, cat, dataFab, id]);
 
   return (
 

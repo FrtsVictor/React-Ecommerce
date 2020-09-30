@@ -23,12 +23,12 @@ function InputModalCategoria({ name, desc, id }) {
       setNome(name);
       setDescricao(desc);
     },
-    [nome],
+    [desc, name],
   );
 
   useEffect(() => {
     namess();
-  }, []);
+  }, [namess]);
 
   const updateCat = () => (
     {

@@ -23,12 +23,12 @@ export default function BasicTextFields({ name, cpff, id }) {
       setNome(name);
       setCpf(cpff);
     },
-    [nome],
+    [name, cpff],
   );
 
   useEffect(() => {
     namess();
-  }, []);
+  }, [namess]);
 
   const updateFunc = () => (
     {
