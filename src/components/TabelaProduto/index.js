@@ -108,27 +108,21 @@ export default function StickyHeadTable({ selectedColumn }) {
 
   useEffect(() => {
     seTableName(selectedColumn);
-  }, [selectedColumn]);
 
-  // select table views
-
-  useEffect(() => {
-    if (tableName === 'Produto') {
+    if (selectedColumn === 'Produto') {
       setCol(makeColHead(chavesProduto));
       setRows(listaProduto);
-    } if (tableName === 'Categoria') {
+    } if (selectedColumn === 'Categoria') {
       setCol(makeColHead(chavesCategoria));
       setRows(listaCategoria);
-    } if (tableName === 'Funcionario') {
+    } if (selectedColumn === 'Funcionario') {
       setCol(makeColHead(chavesFuncionario));
       setRows(listaFunc);
-    } if (tableName === 'Cliente') {
+    } if (selectedColumn === 'Cliente') {
       setCol(makeColHead(chavesCliente));
       setRows(listaObj);
     }
-  }, [tableName, chavesProduto, chavesCategoria,
-    chavesFuncionario, chavesCliente, listaCategoria,
-    listaFunc, listaObj, listaProduto, makeColHead]);
+  }, [selectedColumn]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
