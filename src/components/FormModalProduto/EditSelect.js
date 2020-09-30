@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MultilineTextFields({ getCategoryID }) {
   const { listaCategoria } = useContext(ContextLists);
   const labelCategory = useMemo(() => createLabelOption(listaCategoria), [listaCategoria]);
-  const [labelOption, setLabelOption] = useState('Escolha Categoria');
+  const [labelOption, setLabelOption] = useState();
   const classes = useStyles();
   const handleChange = (event) => {
     setLabelOption(event.target.value);
@@ -41,7 +41,6 @@ export default function MultilineTextFields({ getCategoryID }) {
           label="CATEGORIA DO PRODUTO"
           value={labelOption}
           onChange={handleChange}
-          placeholder="Selecione a categoria do produto!"
         >
           {labelCategory.map((option) => (
             <MenuItem key={option.value} value={option.value}>

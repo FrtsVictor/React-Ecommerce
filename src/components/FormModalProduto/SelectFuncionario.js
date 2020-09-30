@@ -25,7 +25,7 @@ export default function MultilineTextFields({ getFuncID }) {
   const { listaFunc } = useContext(ContextLists);
   const classes = useStyles();
   const labelCategory = useMemo(() => createLabelOption(listaFunc), [listaFunc]);
-  const [labelOption, setLabelOption] = useState('Escolha Categoria');
+  const [labelOption, setLabelOption] = useState();
 
   const handleChange = (event) => {
     setLabelOption(event.target.value);
@@ -41,7 +41,6 @@ export default function MultilineTextFields({ getFuncID }) {
         label="SELECIONE O FUNCIONARIO"
         value={labelOption}
         onChange={handleChange}
-        placeholder="SELECIONE O FUNCIONARIO"
       >
         {labelCategory.map((option) => (
           <MenuItem key={option.value} value={option.value}>
